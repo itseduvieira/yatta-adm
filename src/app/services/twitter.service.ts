@@ -1,0 +1,40 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { environment } from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TwitterService {
+  options: Object = { };
+
+  constructor(private http: HttpClient) { }
+
+  getMine() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(user) {
+      this.options = {
+        headers : new HttpHeaders({
+          'X-Access-Token': user.accessToken,
+          'X-Access-Token-Secret': user.accessTokenSecret
+        })
+      };
+    }
+
+    return this.http.get<any>(`${environment.apiUrl}/tt/stats`, this.options);
+  }
+  
+  me(accessToken, accessTokenSecret) {
+    this.options = {
+      headers : new HttpHeaders({
+        'X-Access-Token': accessToken,
+        'X-Access-Token-Secret': accessTokenSecret
+      })
+    };
+
+    return this.http.get<any[]>(`${environment.apiUrl}/tt/me`, this.options);
+  }
+
+}

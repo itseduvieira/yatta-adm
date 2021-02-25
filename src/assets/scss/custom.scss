@@ -1,0 +1,58 @@
+$card-container-width: 600px;
+
+.card-navbar-expand-md {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: $card-container-width !important;
+}
+
+.navbar-vertical.card-navbar-expand-md > [class*="container"] {
+    min-height: unset;
+}
+
+.card-content {
+    margin-left: $card-container-width !important;
+}
+
+.card-bg {
+    background-image: url(https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80); 
+    background-size: cover; 
+    background-position: left top; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.card-welcome-header, .card-welcome-header {
+    background-size: cover; 
+    background-position: center top;
+}
+
+.card-welcome-header {
+    min-height: 200px;
+}
+
+.card-form-bg {
+    min-height: 200px; 
+}
+
+@media screen and (min-width: 568px) {
+    html, body, .card-bg {
+        height: 100%;
+    }
+
+    .card-welcome-header {
+        min-height: 260px;
+    }
+
+    .card-form-bg {
+        min-height: 100px;
+    }
+}
+
+.navbar-vertical.card-navbar-expand-md::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar-vertical {
+    scrollbar-width: none;
+}

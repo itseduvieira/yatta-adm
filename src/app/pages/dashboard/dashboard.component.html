@@ -1,0 +1,101 @@
+<div class="header bg-gradient-blue pb-8 pt-5 pt-md-7">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row">
+        <div class="col-xl col-lg-4">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Best time</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ bestTime }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl col-lg-4">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Tweet count</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ tweetCount }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
+                    <i class="fab fa-twitter"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl col-lg-4">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Rts + Favs</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ interactions }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl col-lg-4">
+          <div class="card card-stats mb-4 mb-xl-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-uppercase text-muted mb-0">Period</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ period }}</span>
+                </div>
+                <div class="col-auto">
+                  <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
+                    <i class="fas fa-calendar-alt"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow" style="min-height: 420px;">
+        <div class="card-header border-0" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-uppercase text-light ls-1 mb-1">Best time to tweet</h6>
+              <h2 class="mb-0">What time should I tweet?</h2>
+            </div>
+          </div>
+        </div>
+    
+        <div class="card-body"  style="min-height: 18.6rem;">
+          <!-- <div class="chart pl-1 pr-1 pb-1">
+            <canvas id="chart-sales" class="chart-canvas"></canvas>
+          </div> -->
+
+          <h3>2PM</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
