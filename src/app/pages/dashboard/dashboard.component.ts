@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { getMaxListeners } from 'process';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TwitterService } from 'src/app/services/twitter.service';
+import Chart from 'chart.js';
+
+import {
+  chartOptions,
+  parseOptions,
+  hourlyActivity
+} from "../../variables/charts";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +24,8 @@ export class DashboardComponent implements OnInit {
   public rts;
   public favs;
   public days;
+  public info: any;
+  public activityChart;
 
   constructor(
     private authService: AuthenticationService,
@@ -33,7 +41,9 @@ export class DashboardComponent implements OnInit {
 
       this.authService.isDemoAccountState
         .subscribe(isDemoAccount => {
-          this.getMine();
+          if(isDemoAccount) {
+            this.getMine();
+          }
         })
   }
 
@@ -44,19 +54,73 @@ export class DashboardComponent implements OnInit {
 
         this.tweetCount = tweets.count;
 
-        this.interactions = tweets.rts + tweets.favs;
+        this.interactions = `${tweets.rts + tweets.favs} tweets`;
         this.rts = tweets.rts;
         this.favs = tweets.favs;
 
         const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
         const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
         this.term = `${start.format('MMM DD')} to ${end.format('MMM DD')}`;
-        this.days = Math.trunc(moment.duration(end.diff(start)).asDays());
+        this.days = (Math.trunc(moment.duration(end.diff(start)).asDays()) + 1);
 
         const time = tweets.bestTime > 12 ? tweets.bestTime - 12 : tweets.bestTime;
         const ampm = tweets.bestTime > 12 ? 'PM' : 'AM';
         this.bestTime = `Every ${time}${ampm}`
         this.timeInteractions = tweets.frequency[tweets.bestTime]
+
+        this.loadCharts(tweets.frequency);
     })
+  }
+
+  loadCharts(frequency: any[]) {
+    if(!frequency) return;
+
+    let keys = [];
+    let values = [];
+
+    for(let i = 0; i < 24; i++) {
+      let key = String(i).padStart(2, '0');
+
+      values.push(frequency[key] ? frequency[key] : 0);
+      keys.push(key);
+    }
+
+    keys = keys.map(key => {
+      let newKey;
+
+      if(parseInt(key) > 12) {
+        newKey = String((parseInt(key) - 12)).padStart(2, '0') + 'PM';
+      } else {
+        if(key == '00') {
+          newKey = '12AM';
+        } else if(key == '12') {
+          newKey = '12PM';
+        } else {
+          newKey = key + 'AM';
+        }
+      }
+
+      return newKey;
+    });
+
+    parseOptions(Chart, chartOptions());
+
+    var chartActivity = document.getElementById('chart-activity');
+
+    this.activityChart = new Chart(chartActivity, {
+			type: 'bar',
+			options: hourlyActivity.options,
+			data: {
+        labels: keys,
+        datasets: [{
+          label: 'interactions',
+          data: values
+        }]
+      }
+		});
+  }
+
+  transformToLocalTime(time: Number) {
+
   }
 }
