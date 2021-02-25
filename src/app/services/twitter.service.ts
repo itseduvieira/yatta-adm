@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
@@ -19,7 +19,8 @@ export class TwitterService {
         headers : new HttpHeaders({
           'X-Access-Token': user.accessToken,
           'X-Access-Token-Secret': user.accessTokenSecret
-        })
+        }),
+        params: new HttpParams().set("offset", new Date().getTimezoneOffset().toString())
       };
     }
 

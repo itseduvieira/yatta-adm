@@ -52,9 +52,9 @@ export class DashboardComponent implements OnInit {
       .subscribe(tweets => {
         console.log(tweets);
 
-        this.tweetCount = tweets.count;
+        this.tweetCount = `Last ${tweets.count} tweets`;
 
-        this.interactions = `${tweets.rts + tweets.favs} tweets`;
+        this.interactions = `${tweets.rts + tweets.favs} interactions`;
         this.rts = tweets.rts;
         this.favs = tweets.favs;
 
@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit {
         this.term = `${start.format('MMM DD')} to ${end.format('MMM DD')}`;
         this.days = (Math.trunc(moment.duration(end.diff(start)).asDays()) + 1);
 
+        tweets.bestTime = tweets.bestTime;
         const time = tweets.bestTime > 12 ? tweets.bestTime - 12 : tweets.bestTime;
         const ampm = tweets.bestTime > 12 ? 'PM' : 'AM';
         this.bestTime = `Every ${time}${ampm}`
@@ -100,7 +101,7 @@ export class DashboardComponent implements OnInit {
         }
       }
 
-      return newKey;
+      return newKey.startsWith('0') ? newKey.substring(1) : newKey;
     });
 
     parseOptions(Chart, chartOptions());
@@ -109,18 +110,23 @@ export class DashboardComponent implements OnInit {
 
     this.activityChart = new Chart(chartActivity, {
 			type: 'bar',
-			options: hourlyActivity.options,
+			options: {
+        tooltips: {
+          cornerRadius: 4,
+          caretSize: 4,
+          xPadding: 16,
+          yPadding: 10,
+          titleFontStyle: 'normal',
+          titleMarginBottom: 15
+        }
+      },
 			data: {
         labels: keys,
         datasets: [{
-          label: 'interactions',
+          label: 'Interactions',
           data: values
         }]
       }
 		});
-  }
-
-  transformToLocalTime(time: Number) {
-
   }
 }

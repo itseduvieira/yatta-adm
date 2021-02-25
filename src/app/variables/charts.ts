@@ -307,7 +307,7 @@ export const chartExample1 = {
   }
 }
 
-export const chartExample2 = {
+export const hourlyActivity = {
   options: {
     scales: {
       yAxes: [
@@ -337,14 +337,5 @@ export const chartExample2 = {
         }
       }
     }
-  },
-  data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [
-      {
-        label: "Sales",
-        data: [25, 20, 30, 22, 17, 29]
-      }
-    ]
   }
 }
