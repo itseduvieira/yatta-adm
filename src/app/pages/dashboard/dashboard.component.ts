@@ -11,9 +11,13 @@ import { TwitterService } from 'src/app/services/twitter.service';
 })
 export class DashboardComponent implements OnInit {
   public bestTime;
+  public timeInteractions;
   public tweetCount;
   public interactions;
-  public period;
+  public term;
+  public rts;
+  public favs;
+  public days;
 
   constructor(
     private authService: AuthenticationService,
@@ -39,13 +43,20 @@ export class DashboardComponent implements OnInit {
         console.log(tweets);
 
         this.tweetCount = tweets.count;
-        this.interactions = tweets.interactions;
-        const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC').format('MMM DD');
-        const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC').format('MMM DD');
-        this.period = `${start} to ${end}`;
+
+        this.interactions = tweets.rts + tweets.favs;
+        this.rts = tweets.rts;
+        this.favs = tweets.favs;
+
+        const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
+        const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
+        this.term = `${start.format('MMM DD')} to ${end.format('MMM DD')}`;
+        this.days = Math.trunc(moment.duration(end.diff(start)).asDays());
+
         const time = tweets.bestTime > 12 ? tweets.bestTime - 12 : tweets.bestTime;
         const ampm = tweets.bestTime > 12 ? 'PM' : 'AM';
-        this.bestTime = `Every ${time}${ampm} (${tweets.frequency[tweets.bestTime]})`
+        this.bestTime = `Every ${time}${ampm}`
+        this.timeInteractions = tweets.frequency[tweets.bestTime]
     })
   }
 }

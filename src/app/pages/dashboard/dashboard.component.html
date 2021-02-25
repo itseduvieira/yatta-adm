@@ -16,6 +16,10 @@
                   </div>
                 </div>
               </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fas fa-bell"></i> {{ timeInteractions }} interactions</span>
+                <span class="text-nowrap">at this time</span>
+              </p>
             </div>
           </div>
         </div>
@@ -25,7 +29,7 @@
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Tweet count</h5>
-                  <span class="h2 font-weight-bold mb-0">{{ tweetCount }}</span>
+                  <span class="h2 font-weight-bold mb-0">{{ tweetCount }} tweets</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
@@ -33,6 +37,10 @@
                   </div>
                 </div>
               </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> Click here</span>
+                <span class="text-nowrap"> to accurate</span>
+              </p>
             </div>
           </div>
         </div>
@@ -50,6 +58,12 @@
                   </div>
                 </div>
               </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fas fa-retweet"></i> {{ rts }}</span>
+                <span class="text-nowrap">RTs</span>&nbsp;&nbsp;
+                <span class="text-success mr-2"> <i class="fas fa-heart"></i>  {{ favs }}</span>
+                <span class="text-nowrap">FAVs</span>
+              </p>
             </div>
           </div>
         </div>
@@ -58,8 +72,8 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Period</h5>
-                  <span class="h2 font-weight-bold mb-0">{{ period }}</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Date range</h5>
+                  <span class="h2 font-weight-bold mb-0">{{ term }}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-dark text-white rounded-circle shadow">
@@ -67,6 +81,10 @@
                   </div>
                 </div>
               </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fas fa-calendar"></i> {{ days }}</span>
+                <span class="text-nowrap">days summary</span>
+              </p>
             </div>
           </div>
         </div>
@@ -92,8 +110,6 @@
           <!-- <div class="chart pl-1 pr-1 pb-1">
             <canvas id="chart-sales" class="chart-canvas"></canvas>
           </div> -->
-
-          <h3>2PM</h3>
         </div>
       </div>
     </div>
