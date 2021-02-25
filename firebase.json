@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "recorr-adm",
+    "site": "yattanalytics",
     "public": "dist",
     "ignore": [
       "firebase.json",

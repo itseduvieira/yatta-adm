@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { TwitterService } from 'src/app/services/twitter.service';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -41,13 +42,13 @@ export class AuthenticationService {
   }
 
   loginWithTwitter() {
-    return this.login(new auth.TwitterAuthProvider());
+    return this.login(new firebase.auth.TwitterAuthProvider());
   }
 
   async login(provider) {
     const result = await this.angularFireAuth.auth.signInWithPopup(provider);
 
-    const credential = result.credential as auth.OAuthCredential;
+    const credential = result.credential as firebase.auth.OAuthCredential;
 
     const me = await this.twitterService.me(credential.accessToken, credential.secret).toPromise();
 

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3001',
+  apiUrl: 'https://yattanalytics.herokuapp.com',
   firebaseConfig: {
     apiKey: "AIzaSyCAU667SEK2Q4AMitvdjJLLG78y6VXKilM",
     authDomain: "personal-4ace7.firebaseapp.com",

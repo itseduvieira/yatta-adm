@@ -1,15 +1,15 @@
 {
-  "name": "recorr-adm",
+  "name": "yattanalytics",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "deploy": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:recorr-adm"
+    "deploy": "node node_modules/firebase-tools/lib/bin/firebase deploy --only hosting:yattanalytics"
   },
   "private": true,
   "dependencies": {
