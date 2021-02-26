@@ -10,38 +10,14 @@ import 'firebase/auth';
 })
 export class AuthenticationService {
   userData: Observable<any>;
-  subject = new Subject<any>();
-
-  public isDemoAccount: boolean = false;
-  private messageSource = new  BehaviorSubject(this.isDemoAccount);
-  
-  isDemoAccountState = this.messageSource.asObservable();
 
   constructor(
     private angularFireAuth: AngularFireAuth,
     private twitterService: TwitterService) {
     this.userData = angularFireAuth.authState;
   }
-  
-  loginDemoAccount() {
-    const user = {
-      profile: {
-        data: {
-          name: 'Demo',
-          screen_name: 'efvi_',
-          profile_image_url: 'http://pbs.twimg.com/profile_images/1364345989872640007/N_KimaFU_normal.jpg'
-        }
-      },
-      accessToken: 'demo',
-      accessTokenSecret: 'demo'
-    };
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    
-    this.messageSource.next(true)
-  }
-
-  loginWithTwitter() {
+  loginWithTwitter(): any {
     return this.login(new firebase.auth.TwitterAuthProvider());
   }
 

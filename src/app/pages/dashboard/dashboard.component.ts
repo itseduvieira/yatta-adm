@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import * as moment from 'moment-timezone';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { TwitterService } from 'src/app/services/twitter.service';
 import Chart from 'chart.js';
+
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import {
   chartOptions,
   parseOptions,
   hourlyActivity
 } from "../../variables/charts";
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,24 +31,47 @@ export class DashboardComponent implements OnInit {
   public info: any;
   public activityChart;
 
+  public focus;
+  public listTitles: any[] = [];
+  public location: Location;
+  public name: string;
+  public username: string;
+  public currentUser: any;
+  public profile: any;
+  public isLogged = false;
+
   constructor(
-    private authService: AuthenticationService,
-    private twitterService: TwitterService) { }
+    private twitterService: TwitterService,
+    private authService: AuthenticationService, 
+    location: Location,  
+    private element: ElementRef, 
+    private router: Router) {
+
+    this.location = location;
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    }
 
   ngOnInit() {
-    this.authService.userData
-      .subscribe(user => {
-        if(user) {
-          this.getMine();
-        }
-      });
+    if(this.currentUser && this.currentUser.accessToken === 'demo') {
+      this.getMine();
 
-      this.authService.isDemoAccountState
-        .subscribe(isDemoAccount => {
-          if(isDemoAccount) {
+      this.profile = this.currentUser.profile.data;
+
+      this.isLogged = true;
+    } else {
+      this.authService.userData
+      .pipe(first())
+        .subscribe(user => {
+          if(this.currentUser) {
+            this.profile = this.currentUser.profile.data;
+
+            this.isLogged = true;
+
             this.getMine();
           }
-        })
+        });
+    }
   }
 
   getMine() {
@@ -128,5 +155,74 @@ export class DashboardComponent implements OnInit {
         }]
       }
 		});
+  }
+
+  getTitle() {
+    var titlee = this.location.prepareExternalUrl(this.location.path());
+    if(titlee.charAt(0) === '#'){
+        titlee = titlee.slice( 1 );
+    }
+
+    for(var item = 0; item < this.listTitles.length; item++){
+        if(this.listTitles[item].path === titlee){
+            return this.listTitles[item].title;
+        }
+    }
+    return '⏰ My Dashboard';
+  }
+  
+  loginDemo() {
+    const user = {
+      profile: {
+        data: {
+          name: 'Jonas Marra (Demo)',
+          screen_name: 'jmarra_',
+          profile_image_url: '//bit.ly/3dPV66u'
+        }
+      },
+      accessToken: 'demo',
+      accessTokenSecret: 'demo'
+    };
+
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    this.getMine();
+
+    this.profile = user.profile.data;
+
+    this.isLogged = true;    
+  }
+
+  loginTT() {
+    this.authService.loginWithTwitter().then(result => {
+      console.log(result);
+
+      this.profile = result.profile.data;
+
+      this.isLogged = true;
+
+      this.getMine();
+    });
+  }
+
+  logout() {
+    this.authService.logout().then(result => {
+      this.bestTime = null;
+      this.tweetCount = null;
+      this.interactions = null;
+      this.term = null;
+      this.rts = null;
+      this.favs = null;
+      this.days = null;
+      this.timeInteractions = null;
+      this.profile = null;
+      if(this.activityChart) {
+        this.activityChart.destroy();
+      }
+      this.activityChart = null;
+      this.info = null;
+  
+      this.isLogged = false;
+    });
   }
 }
