@@ -87,7 +87,8 @@ export class DashboardComponent implements OnInit {
 
         const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
         const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
-        this.term = `${start.format('MMM/DD/YY')} to ${end.format('MMM/DD/YY')}`;
+        let format = start.format('YYYY') === end.format('YYYY') ? 'MMM DD' : 'MMM/DD/YY';
+        this.term = `${start.format(format)} to ${end.format(format)}`;
         this.days = (Math.trunc(moment.duration(end.diff(start)).asDays()) + 1);
 
         tweets.bestTime = tweets.bestTime;
