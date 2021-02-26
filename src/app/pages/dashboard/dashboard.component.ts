@@ -168,7 +168,7 @@ export class DashboardComponent implements OnInit {
             return this.listTitles[item].title;
         }
     }
-    return '⏰ My Dashboard';
+    return '⏰ Yatta Dashboard';
   }
   
   loginDemo() {
