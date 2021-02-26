@@ -91,11 +91,15 @@ export class DashboardComponent implements OnInit {
         this.term = `${start.format(format)} to ${end.format(format)}`;
         this.days = (Math.trunc(moment.duration(end.diff(start)).asDays()) + 1);
 
-        tweets.bestTime = tweets.bestTime;
-        const time = tweets.bestTime > 12 ? tweets.bestTime - 12 : tweets.bestTime;
-        const ampm = tweets.bestTime > 12 ? 'PM' : 'AM';
-        this.bestTime = `Every ${time}${ampm}`
-        this.timeInteractions = tweets.frequency[tweets.bestTime]
+        let bestTimeInt = parseInt(tweets.bestTime);
+        let time = bestTimeInt > 12 ? bestTimeInt - 12 : bestTimeInt;
+        let ampm = bestTimeInt > 12 ? 'PM' : 'AM';
+        if(time === 0) {
+          time = 12;
+          ampm = 'AM';
+        }
+        this.bestTime = `Every ${time}${ampm}`;
+        this.timeInteractions = tweets.frequency[tweets.bestTime];
 
         this.loadCharts(tweets.frequency);
     })
