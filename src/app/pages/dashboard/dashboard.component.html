@@ -1,10 +1,53 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid" style="min-height: 56px;">
+    
+    <div class="row">
+      <div class="col-xl m-3">
+        <a class="h4 text-uppercase" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
+      </div>
+    </div>
+    <div *ngIf="!isLogged" class="row">
+      <div class="col-xl m-2">
+        <a href="#" class="btn btn-primary" (click)="loginTT()">Login with Twitter</a>
+      </div>
+      <div class="col-xl mt-1">
+        <a class="h4 ml-4 mr-4 mb-0" href="#" (click)="loginDemo()">Demo account</a>
+      </div>
+    </div>
+
+    <ul *ngIf="isLogged" class="navbar-nav align-items-center ml-1" style="cursor: pointer;">
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+          <div class="media align-items-center">
+            <span class="avatar avatar-md rounded-circle">
+              <img alt="{{ profile.name }}" src="{{ profile.profile_image_url.replace('http:', '') }}">
+            </span>
+            <div class="media-body ml-2">
+              <span class="mb-0 text-sm font-weight-bold">{{ profile.name }}</span>
+              <span class="mb-0">
+                <p class="text-sm mb-0">@{{ profile.screen_name }}</p>
+              </span>
+            </div>
+          </div>
+        </a>
+        <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
+          <a (click)="logout()" class="dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid" style="min-height: 56px;">
     <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
     
     <div *ngIf="!isLogged">
       <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block" href="#" (click)="loginDemo()">Demo account</a>
-      <button type="submit" class="btn btn-primary" (click)="loginTT()">Login with Twitter</button>
+      <button type="submit" class="btn btn-primary d-none d-lg-inline-block" (click)="loginTT()">Login with Twitter</button>
     </div>
     <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">
       <li class="nav-item" ngbDropdown placement="bottom-right">
