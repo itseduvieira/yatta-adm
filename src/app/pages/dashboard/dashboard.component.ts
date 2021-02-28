@@ -180,8 +180,8 @@ export class DashboardComponent implements OnInit {
     const user = {
       profile: {
         data: {
-          name: 'Jonas Marra (Demo)',
-          screen_name: 'jmarra_',
+          name: '[DEMO] Jonas Marra',
+          screen_name: 'marrajonas_',
           profile_image_url: '//bit.ly/3dPV66u'
         }
       },

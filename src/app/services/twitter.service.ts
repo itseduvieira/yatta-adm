@@ -18,7 +18,8 @@ export class TwitterService {
       this.options = {
         headers : new HttpHeaders({
           'X-Access-Token': user.accessToken,
-          'X-Access-Token-Secret': user.accessTokenSecret
+          'X-Access-Token-Secret': user.accessTokenSecret,
+          'Authorization': `Bearer ${user.token}`
         }),
         params: new HttpParams().set("offset", new Date().getTimezoneOffset().toString())
       };
@@ -27,11 +28,12 @@ export class TwitterService {
     return this.http.get<any>(`${environment.apiUrl}/tt/stats`, this.options);
   }
   
-  me(accessToken, accessTokenSecret) {
+  me(accessToken, accessTokenSecret, token) {
     this.options = {
       headers : new HttpHeaders({
         'X-Access-Token': accessToken,
-        'X-Access-Token-Secret': accessTokenSecret
+        'X-Access-Token-Secret': accessTokenSecret,
+        'Authorization': `Bearer ${token}`
       })
     };
 

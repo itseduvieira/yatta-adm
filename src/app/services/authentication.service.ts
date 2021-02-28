@@ -22,21 +22,26 @@ export class AuthenticationService {
   }
 
   async login(provider) {
-    const result = await this.angularFireAuth.auth.signInWithPopup(provider);
+    
+      const result = await this.angularFireAuth.auth.signInWithPopup(provider);
 
-    const credential = result.credential as firebase.auth.OAuthCredential;
+      const credential = result.credential as firebase.auth.OAuthCredential;
 
-    const me = await this.twitterService.me(credential.accessToken, credential.secret).toPromise();
+      // let token = await result.user.getIdToken(true)
+      let token = 'demo';
 
-    const user = {
-      profile: me,
-      accessToken: credential.accessToken,
-      accessTokenSecret: credential.secret
-    };
+      const me = await this.twitterService.me(credential.accessToken, credential.secret, token).toPromise();
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
+      const user = {
+        profile: me,
+        accessToken: credential.accessToken,
+        accessTokenSecret: credential.secret,
+        token: token
+      };
 
-    return Promise.resolve(user);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
+      return Promise.resolve(user);
   }
 
   logout(): Promise<void> {
