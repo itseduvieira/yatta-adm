@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit {
   public currentUser: any;
   public profile: any;
   public isLogged = false;
+  public isDemo = false;
 
   constructor(
     private twitterService: TwitterService,
@@ -59,6 +60,8 @@ export class DashboardComponent implements OnInit {
       this.profile = this.currentUser.profile.data;
 
       this.isLogged = true;
+
+      this.isDemo = true;
     } else {
       this.authService.userData
       .pipe(first())
@@ -67,6 +70,8 @@ export class DashboardComponent implements OnInit {
             this.profile = this.currentUser.profile.data;
 
             this.isLogged = true;
+
+            this.isDemo = false;
 
             this.getMine();
           }
@@ -180,7 +185,7 @@ export class DashboardComponent implements OnInit {
     const user = {
       profile: {
         data: {
-          name: '[DEMO] Jonas Marra',
+          name: 'Jonas Marra',
           screen_name: 'marrajonas_',
           profile_image_url: '//bit.ly/3dPV66u'
         }
@@ -196,6 +201,8 @@ export class DashboardComponent implements OnInit {
     this.profile = user.profile.data;
 
     this.isLogged = true;    
+
+    this.isDemo = true;
   }
 
   loginTT() {
@@ -205,6 +212,8 @@ export class DashboardComponent implements OnInit {
       this.profile = result.profile.data;
 
       this.isLogged = true;
+
+      this.isDemo = false;
 
       this.getMine();
     });
@@ -228,6 +237,7 @@ export class DashboardComponent implements OnInit {
       this.info = null;
   
       this.isLogged = false;
+      this.isDemo = false;
     });
   }
 }
