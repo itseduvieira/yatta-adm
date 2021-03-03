@@ -1,15 +1,16 @@
 .stripe-demo {
     background-color: #F95F41;
     position: fixed;
-    height: 26px;
+    height: 23px;
     width: 100%;
     text-align: center;
-    top: 0;
+    top: -4px;
     z-index: 10000;
 }
 
 .text-stripe-demo {
-    font-size: 14px;
+    font-size: 0.7em;
+    text-transform: uppercase;
     color: white;
     font-weight: bold;
 }

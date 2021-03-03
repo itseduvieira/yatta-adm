@@ -1,67 +1,50 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+  <div class="container-fluid" style="min-height: 56px;">
+    <a class="h4 mb-0 text-white" style="font-size: 1em;" routerLinkActive="active" [routerLink]="['/']">⏰ Yatta Analytics</a>
 
+    <div>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" (click)="loginDemo()">Pricing</a>
+      <button type="button" class="btn btn-secondary text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Sign up</button>
+    </div>
+  </div>
 </nav>
 
-<div class="header bg-gradient-blue pb-8 pt-5 pt-md-7">
-  <div class="container-fluid">
+<div class="header pb-6 pt-6 pt-md-8">
+  <div class="container">
     <div class="header-body">
-      <div class="row">
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
+      <div class="row align-items-center">
 
-              </div>
-            </div>
-          </div>
+        <div class="col align-items-center" style="text-align: center;">
+          <h1 class="text-white display-2" style="font-weight: 800;">What's the best time to tweet?</h1>
+          <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta is a lightweight tool to help content creators to know their<br>audience habits</h1>
         </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
 
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="row align-items-center mt-5">
+        <div class="col align-items-center" style="text-align: center;">
+          <button type="button" class="btn btn-secondary p-3 pl-4 pr-4 text-uppercase ls-1" style="font-size: 0.8em;" [routerLink]="['/dashboard']">⏰ Discover the best time right now</button>
         </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
 
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- Page content -->
-<div class="container-fluid mt--7">
+
+<div class="container-fluid">
   <div class="row">
     <div class="col">
-      <div class="card shadow" style="min-height: 420px;">
+      <div class="card shadow mb-8 p-3" style="min-height: 420px;">
         <div class="card-header border-0" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
-          <div class="row align-items-center">
-            <div class="col">
+          <div class="row">
+            <div class="col" style="text-align: center;">
               <h6 class="text-uppercase text-light ls-1 mb-1">Interactions by hour</h6>
-              <h2 class="mb-0">What time should I tweet?</h2>
+              <h2 class="mb-0">When your tweets get attention?</h2>
             </div>
           </div>
         </div>
     
         <div class="card-body"  style="min-height: 18.6rem;">
-        
+          <img class="img-fluid" src="/assets/img/mockup.png" />
         </div>
       </div>
     </div>

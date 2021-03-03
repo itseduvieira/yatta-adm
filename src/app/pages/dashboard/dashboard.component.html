@@ -8,10 +8,10 @@
     </div>
     <div *ngIf="!isLogged" class="row">
       <div class="col-xl m-2">
-        <button type="submit" class="btn btn-primary d-lg-inline-block" (click)="loginTT()">Login with Twitter</button>
+        <button type="button" class="btn btn-primary d-lg-inline-block text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Login with Twitter</button>
       </div>
       <div class="col-xl mt-1">
-        <a class="h4 ml-4 mr-4 mb-0" (click)="loginDemo()">Demo account</a>
+        <a class="h4 ml-4 mr-4 mb-0 text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginDemo()">Demo account</a>
       </div>
     </div>
 
@@ -50,8 +50,8 @@
     <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
     
     <div *ngIf="!isLogged">
-      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block" style="cursor: pointer;" (click)="loginDemo()">Demo account</a>
-      <button type="submit" class="btn btn-primary d-none d-lg-inline-block" (click)="loginTT()">Login with Twitter</button>
+      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" (click)="loginDemo()">Demo account</a>
+      <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Login with Twitter</button>
     </div>
     <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">
       <li class="nav-item" ngbDropdown placement="bottom-right">
@@ -198,5 +198,5 @@
 </div>
 
 <div *ngIf="isLogged && isDemo" class="stripe-demo">
-  <span class="text-stripe-demo">DEMO ACCOUNT</span>
+  <span class="text-stripe-demo ls-1">DEMO ACCOUNT</span>
 </div>
