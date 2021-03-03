@@ -1,4 +1,4 @@
-<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" style="padding-left: 0;padding-right: 0;" id="sidenav-main">
   <div class="container-fluid" style="min-height: 56px;">
     
     <div class="row" style="width: 100%;">
@@ -8,10 +8,10 @@
     </div>
     <div *ngIf="!isLogged" class="row">
       <div class="col-xl m-2">
-        <a href="#" class="btn btn-primary" (click)="loginTT()">Login with Twitter</a>
+        <button type="submit" class="btn btn-primary d-lg-inline-block" (click)="loginTT()">Login with Twitter</button>
       </div>
       <div class="col-xl mt-1">
-        <a class="h4 ml-4 mr-4 mb-0" href="#" (click)="loginDemo()">Demo account</a>
+        <a class="h4 ml-4 mr-4 mb-0" (click)="loginDemo()">Demo account</a>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
     <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
     
     <div *ngIf="!isLogged">
-      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block" href="#" (click)="loginDemo()">Demo account</a>
+      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block" style="cursor: pointer;" (click)="loginDemo()">Demo account</a>
       <button type="submit" class="btn btn-primary d-none d-lg-inline-block" (click)="loginTT()">Login with Twitter</button>
     </div>
     <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">

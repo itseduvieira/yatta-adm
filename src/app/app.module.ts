@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,6 +40,7 @@ import { AuthGuard } from "./guards/auth-guard.service";
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    SiteLayoutComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
     this.location = location;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     
-    }
+  }
 
   ngOnInit() {
     if(this.currentUser && this.currentUser.accessToken === 'demo') {
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
       this.isDemo = true;
     } else {
       this.authService.userData
-      .pipe(first())
+        .pipe(first())
         .subscribe(user => {
           if(this.currentUser) {
             this.profile = this.currentUser.profile.data;
@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit {
 
   getMine() {
     this.twitterService.getMine()
+      .pipe(first())
       .subscribe(tweets => {
         console.log(tweets);
 

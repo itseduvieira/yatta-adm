@@ -4,16 +4,19 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 
 import { AuthGuard } from './guards/auth-guard.service';
 
 const routes: Routes =[
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard',
+  //   pathMatch: 'full',
+  // }, 
+  
   {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  }, {
-    path: '',
+    path: 'dashboard',
     component: AdminLayoutComponent,
     children: [
       {
@@ -23,8 +26,18 @@ const routes: Routes =[
     ],
     // canActivate: [AuthGuard]
   }, {
+    path: 'home',
+    component: SiteLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
+      }
+    ],
+    // canActivate: [AuthGuard]
+  }, {
     path: '**',
-      redirectTo: 'dashboard'
+      redirectTo: 'home'
   }
 ];
 
