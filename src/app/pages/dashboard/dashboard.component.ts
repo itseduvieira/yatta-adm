@@ -54,14 +54,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.currentUser && this.currentUser.accessToken === 'demo') {
-      this.getMine();
-
-      this.profile = this.currentUser.profile.data;
-
-      this.isLogged = true;
-
-      this.isDemo = true;
+    const url = this.router.url;
+    if((this.currentUser && this.currentUser.accessToken === 'demo') ||
+        url.indexOf('/demo') > -1) {
+      this.loginDemo();
     } else {
       this.authService.userData
         .pipe(first())
@@ -239,6 +235,8 @@ export class DashboardComponent implements OnInit {
   
       this.isLogged = false;
       this.isDemo = false;
+
+      this.router.navigate(['/home']);
     });
   }
 }

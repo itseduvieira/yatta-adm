@@ -1,10 +1,12 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid" style="min-height: 56px;">
-    <a class="h4 mb-0 text-white" style="font-size: 1em;" routerLinkActive="active" [routerLink]="['/']">⏰ Yatta Analytics</a>
+    <a class="h4 mb-0 text-white" style="font-size: 1em;" routerLinkActive="active" [routerLink]="['/']">⏰ yatta analytics</a>
 
     <div>
-      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" (click)="loginDemo()">Pricing</a>
-      <button type="button" class="btn btn-secondary text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Sign up</button>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#about" style="cursor: pointer; font-size: 0.7em;">About yatta</a>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#pricing" style="cursor: pointer; font-size: 0.7em;">Pricing</a>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" [routerLink]="['/dash/demo']">Live demo</a>
+      <button type="button" class="btn btn-secondary text-uppercase ml-4 ls-1" style="font-size: 0.7em;color:#4150a5;">Get started</button>
     </div>
   </div>
 </nav>
@@ -15,14 +17,14 @@
       <div class="row align-items-center">
 
         <div class="col align-items-center" style="text-align: center;">
-          <h1 class="text-white display-2" style="font-weight: 800;">What's the best time to tweet?</h1>
-          <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta is a lightweight tool to help content creators to know their<br>audience habits</h1>
+          <h1 class="text-white display-2" style="font-weight: 800;">What's your best time to tweet?</h1>
+          <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta helps you to become aware of your audience's habits</h1>
         </div>
 
       </div>
       <div class="row align-items-center mt-5">
         <div class="col align-items-center" style="text-align: center;">
-          <button type="button" class="btn btn-secondary p-3 pl-4 pr-4 text-uppercase ls-1" style="font-size: 0.8em;" [routerLink]="['/dashboard']">⏰ Discover the best time right now</button>
+          <button type="button" class="btn btn-secondary p-3 pl-4 pr-4 text-uppercase ls-1" style="font-size: 0.8em;color:#4150a5;" [routerLink]="['/']">⏰ Find your best time right now</button>
         </div>
 
       </div>
@@ -38,13 +40,54 @@
           <div class="row">
             <div class="col" style="text-align: center;">
               <h6 class="text-uppercase text-light ls-1 mb-1">Interactions by hour</h6>
-              <h2 class="mb-0">When your tweets get attention?</h2>
+              <h2 class="h1 mb-2">Know when your tweets get most attention</h2>
             </div>
           </div>
         </div>
     
         <div class="card-body"  style="min-height: 18.6rem;">
           <img class="img-fluid" src="/assets/img/mockup.png" />
+        </div>
+
+        <div id="about" class="card-header border-0 pt-7" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <h6 class="text-uppercase text-light ls-1 mb-1">About yatta</h6>
+              <h2 class="h1 mb-0">yatta stands for: Yet Another Twitter Analytics</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body" style="min-height: 16rem; text-align: center;">
+          <p>Hi, I'm Edu! 👋</p>
+          <p>
+            I always wanted to know what is the best time to tweet.<br>
+            In other words, I was really curious about what time of the day my tweets<br>
+            get more attention. Then I've built this lightweight tool to help me raise<br>
+            my awareness and just realized how useful it could be for a lot of people.<br>
+          </p>
+          <p>
+            So, what do you think, wanna know your best time?
+          </p>
+          <p>
+
+          </p>
+          <p>
+            <button type="button" class="btn btn-outline-primary m-2 text-uppercase ls-1" style="font-size: 0.8em;" [routerLink]="['/']">⏰ Find your best time right now</button>
+          </p>
+        </div>
+
+        <div id="pricing" class="card-header border-0 pt-7" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <h6 class="text-uppercase text-light ls-1 mb-1">Pricing and Plans</h6>
+              <h2 class="h1 mb-0">Wanna have great insights about your audience?<br>Check out our plans!</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body"  style="min-height: 16rem;">
+          <!-- <img class="img-fluid" src="/assets/img/mockup.png" /> -->
         </div>
       </div>
     </div>
