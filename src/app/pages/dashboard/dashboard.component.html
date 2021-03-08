@@ -47,11 +47,11 @@
 
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid" style="min-height: 56px;">
-    <span class="h4 mb-0 text-white d-none d-lg-inline-block" style="font-size: 1em;">⏰ yatta dashboard</span>
+    <span class="h4 mb-0 text-white d-none d-lg-inline-block" style="font-size: 1em;">⏰ yatta! dashboard</span>
     
     <div *ngIf="!isLogged">
-      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" [routerLink]="['/dash/demo']">Live demo</a>
-      <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1" style="font-size: 0.7em;color:#4150a5;" (click)="loginTT()">Login with Twitter</button>
+      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1" style="cursor: pointer; font-size: 0.8em;" [routerLink]="['/dash/demo']">Live demo</a>
+      <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1" style="font-size: 0.8em;color:#4150a5;" (click)="loginTT()">⏰ Find your best time right now</button>
     </div>
     <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">
       <li class="nav-item" ngbDropdown placement="bottom-right">

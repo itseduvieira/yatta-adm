@@ -1,0 +1,31 @@
+.button-close-modal {
+	position: absolute;
+	right: 90px;
+	height: 30px;
+	width: 30px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	margin: 20px;
+	font-size: 1.6rem;
+	font-weight: 800;
+	background: #fff;
+	border: 0;
+	z-index: 20;
+
+	cursor: pointer;
+}
+
+.button-close-modal:focus {
+	outline: none;
+}
+
+.custom-toggle-slider {
+	border-color: #5e72e4;
+}
+
+.custom-toggle-slider:before {
+	background-color: #5e72e4;
+}

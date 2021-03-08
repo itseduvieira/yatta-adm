@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { environment } from '../../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PaymentService {
+  options: Object = { };
+
+  constructor(private http: HttpClient) { }
+
+  createIntent(product: any) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(user) {
+      this.options = {
+        headers : new HttpHeaders({
+          'X-Access-Token': user.accessToken,
+          'X-Access-Token-Secret': user.accessTokenSecret,
+          'Authorization': `Bearer ${user.token}`
+        })
+      };
+    }
+
+    return this.http.post<any>(`${environment.apiUrl}/payment/intent`, product, this.options);
+  }
+
+}

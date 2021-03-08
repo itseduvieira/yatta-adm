@@ -1,12 +1,18 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
   <div class="container-fluid" style="min-height: 56px;">
-    <a class="h4 mb-0 text-white" style="font-size: 1em;" routerLinkActive="active" [routerLink]="['/']">⏰ yatta analytics</a>
+    <a class="h4 mb-0 text-white" style="font-size: 1em;" routerLinkActive="active" [routerLink]="['/']">⏰ yatta!
+      analytics</a>
 
     <div>
-      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#about" style="cursor: pointer; font-size: 0.7em;">About yatta</a>
-      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#pricing" style="cursor: pointer; font-size: 0.7em;">Pricing</a>
-      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;" [routerLink]="['/dash/demo']">Live demo</a>
-      <button type="button" class="btn btn-secondary text-uppercase ml-4 ls-1" style="font-size: 0.7em;color:#4150a5;">Get started</button>
+      
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1"
+        style="cursor: pointer; font-size: 0.7em;" (click)="openModal(content)">Pricing</a>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;"
+        [routerLink]="['/dash/demo']">Live demo</a>
+      <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#about"
+        style="cursor: pointer; font-size: 0.7em;">About yatta!</a>
+      <button type="button" class="btn btn-secondary text-uppercase ml-4 ls-1"
+        style="font-size: 0.7em;color:#4150a5;" (click)="checkTwitter()">Get started</button>
     </div>
   </div>
 </nav>
@@ -16,15 +22,17 @@
     <div class="header-body">
       <div class="row align-items-center">
 
-        <div class="col align-items-center" style="text-align: center;">
-          <h1 class="text-white display-2" style="font-weight: 800;">What's your best time to tweet?</h1>
-          <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta helps you to become aware of the audience's habits on Twitter</h1>
+        <div class="col align-items-center p-sm-3" style="text-align: center;">
+          <h1 class="text-white display-1" style="font-weight: 800;">What's your best time to tweet?</h1>
+          <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta helps you to become aware
+            of your audience's habits on Twitter</h1>
         </div>
 
       </div>
       <div class="row align-items-center mt-5">
         <div class="col align-items-center" style="text-align: center;">
-          <button type="button" class="btn btn-secondary p-3 pl-4 pr-4 text-uppercase ls-1" style="font-size: 0.8em;color:#4150a5;" [routerLink]="['/']">⏰ Find your best time right now</button>
+          <button type="button" class="btn btn-secondary p-3 pl-5 pr-5 m-2 text-uppercase ls-1"
+            style="font-size: 0.8em;color:#4150a5;" (click)="checkTwitter()">⏰ Find your best time right now</button>
         </div>
 
       </div>
@@ -44,84 +52,72 @@
             </div>
           </div>
         </div>
-    
-        <div class="card-body"  style="min-height: 18.6rem;">
+
+        <div class="card-body" style="min-height: 18.6rem;">
           <img class="img-fluid" src="/assets/img/mockup.png" />
         </div>
 
         <div id="about" class="card-header border-0 pt-7" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
           <div class="row">
             <div class="col" style="text-align: center;">
-              <h6 class="text-uppercase text-light ls-1 mb-1">About yatta</h6>
-              <h2 class="h1 mb-3">yatta stands for: Yet Another Twitter Analytics</h2>
+              <h6 class="text-uppercase text-light ls-1 mb-1">About yatta!</h6>
+              <h2 class="h1 mb-3">yatta! or Yet Another Twitter Analytics</h2>
             </div>
           </div>
         </div>
 
         <div class="card-body" style="min-height: 16rem;text-align: center;">
           <div class="row justify-content-center">
-            <div class="col-8">
+            <div class="col col-md-8">
               <p>Hi, I'm Edu! 👋</p>
               <p>
-                I always wanted to know what is the best time to tweet. In other words, I was really curious about what time of the day my tweets were getting more attention. To answer that question I've built this lightweight tool to help me raise awareness about my content and just realized how useful it could be for other people on Twitter.
+                I always wanted to know what is the best time to tweet. In other words, I was really curious about what
+                time of the day my tweets were getting more attention. To answer that question I've built this
+                lightweight tool to help me raise awareness about my content and just realized how useful it could be
+                for other people on Twitter.
               </p>
+              
               <p>
                 So, wanna find your best time?
               </p>
+
               <p>
-                <button type="button" class="btn btn-outline-primary m-3 text-uppercase ls-1" style="font-size: 0.8em;" [routerLink]="['/']">⏰ Find your best time right now</button>
+                <button type="button" class="btn btn-primary m-5 p-3 pl-5 pr-5 text-uppercase ls-1" style="font-size: 0.8em;"
+                  [routerLink]="['/']">⏰ Find your best time right now</button>
               </p>
             </div>
           </div>
-          
-          <h2 class="mt-5 mb-6">Why use yatta?</h2>
-          <div class="row justify-content-center">
-            <div class="col-3" style="text-align: left;">
+
+          <h2 class="mt-4 mb-6">Here is why you should use yatta!</h2>
+          <div class="row justify-content-center pb-3">
+            <div class="col col-md-3" style="text-align: left;">
               <h3>It's easy and simple</h3>
               <p>
-                You just have to log in with your Twitter account, select a plan and done.
-                Your best time will be available instantly. Simple as that.
+                Just sign in with your Twitter account, select a plan and done.
+                Your best time will be available instantly. As simple as that.
               </p>
             </div>
-            <div class="col-3" style="text-align: left;">
-              <h3>Insights that matters</h3>
+            <div class="col col-md-3" style="text-align: left;">
+              <h3>Insights that matter</h3>
               <p>
-                Make better plans and optimize your time with the great insights provided by yatta.
+                Don't waste time.
+                Make better analysis and optimize your time with great insights provided by yatta!
               </p>
             </div>
-            <div class="col-3" style="text-align: left;">
+            <div class="col col-md-3" style="text-align: left;">
               <h3>We don't store any data</h3>
               <p>
-                I always wanted to know what is the best time to tweet.
-                In other words, I was really curious about what time of the day my tweets.
+                We take your privacy very seriously.
+                yatta! calculates everything on demand. No data is stored.
               </p>
             </div>
           </div>
-        </div>
 
-        <div id="pricing" class="card-header border-0 pt-7" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
-          <div class="row">
-            <div class="col" style="text-align: center;">
-              <h6 class="text-uppercase text-light ls-1 mb-1">Pricing and Plans</h6>
-              <h2 class="h1 mb-3">Wanna have great insights about your audience?<br>Check out our plans!</h2>
-            </div>
-          </div>
-        </div>
+          <div class="row justify-content-center pb-7">
+            <div class="col">
 
-        <div class="card-body pb-7"  style="min-height: 16rem;">
-          <div class="row justify-content-center">
-            <div class="col-3 m-2 p-4" style="text-align: left;border:solid 0.5px #5a6ddd;min-height: 16rem;border-radius: 6px;">
-              <h3>1st plan</h3>
-              <p>
-                I always wanted to know what is the best time to tweet.
-                In other words, I was really curious about what time of the day my tweets.
-              </p>
-            </div>
-            <div class="col-3 m-2 p-4" style="text-align: left;border:solid 0.5px #5a6ddd;min-height: 16rem;border-radius: 6px">
-              <h3>2nd plan</h3>
-              <p>
-                I always wanted to know what is the best time to tweet.
-                In other words, I was really curious about what time of the day my tweets.
+              <p class="p-2">
+                <a class="btn btn-outline-primary m-3 p-3 pl-5 pr-5 text-uppercase ls-1" href="https://twitter.com/messages/compose?recipient_id=72183014&text=yatta!" target="_blank" style="font-size: 0.8em;">📩 Any questions? Send me a DM</a>
               </p>
             </div>
           </div>
@@ -130,3 +126,200 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" style="z-index: 1000;" class="close" data-dismiss="modal" aria-label="Close" (click)="c('Close click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body mt--5 pt-5 pb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-6" style="text-align: center;">
+            <h6 class="text-uppercase text-light ls-1 mb-1">Yet Another Twitter Analytics</h6>
+            <h2 class="h1 mb-3">⏰ yatta! analytics</h2>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <h6 class="text-uppercase ls-1 mb-4" style="color: #525f7f;">Billing type</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4" style="text-align: right;">
+                <h6 class="text-uppercase ls-1" [ngClass]="{'text-light': billing.checked, 'text-blue': !billing.checked}">Pay montly</h6>
+              </div>
+              <div class="col-4" style="text-align: center;">
+                <div class="form-group">
+                  <label class="custom-toggle">
+                    <input #billing type="checkbox" (change)="changeBilling(billing.checked)">
+                    <span class="custom-toggle-slider rounded-circle"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="col-4" style="text-align: left;">
+                <h6 class="text-uppercase ls-1" [ngClass]="{'text-blue': billing.checked, 'text-light' : !billing.checked}">Pay annually</h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12" style="text-align: center;">
+                <span style="font-size: small;">Your card will be charged {{ billing.checked ? '$24 annually' : '$3 montly' }}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 pt-4 pb-4" style="text-align: center;">
+                <!-- <div class="form-group" style="text-align: center;">
+                  <button type="button" class="btn btn-outline-primary text-uppercase ls-1" style="font-size: 0.75em;"
+                    (click)="checkTwitter()">⏰ Connect with Twitter</button>
+                </div> -->
+
+                <h1 style="font-size: 3.6em; font-weight: 800;color: #5e72e4;">
+                  <s *ngIf="billing.checked" class="text-light">$3</s> 
+                  {{montly}}/mo
+                </h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <h6 class="text-uppercase text-light ls-1 mb-3">Pay with credit card</h6>
+                  <style>
+                    .StripeElement--focus,
+                    .StripeElement--complete,
+                    .StripeElement--empty {
+                      border-radius: 5px;
+                      outline:0;
+                      border: solid 1px #525f7f;
+                    }
+
+                    .StripeElement--invalid {
+                      border-radius: 5px;
+                      outline:0;
+                      border: solid 1px #fa755a;
+                    }
+
+                    #card-number.form-control,
+                    #card-cvc.form-control,
+                    #card-exp.form-control {
+                      display:inline-block;
+                    }
+
+                    .result-message {
+                      line-height: 22px;
+                      font-size: 16px;
+                    }
+
+                    .result-message a {
+                      color: rgb(89, 111, 214);
+                      font-weight: 600;
+                      text-decoration: none;
+                    }
+
+                    .hidden {
+                      display: none;
+                    }
+
+                    #card-error {
+                      color: rgb(105, 115, 134);
+                      text-align: left;
+                      font-size: 13px;
+                      line-height: 17px;
+                      margin-top: 12px;
+                    }
+
+                    .spinner,
+                    .spinner:before,
+                    .spinner:after {
+                      border-radius: 50%;
+                    }
+                    .spinner {
+                      color: #ffffff;
+                      font-size: 22px;
+                      text-indent: -99999px;
+                      margin: 0px auto;
+                      position: relative;
+                      width: 20px;
+                      height: 20px;
+                      box-shadow: inset 0 0 0 2px;
+                      -webkit-transform: translateZ(0);
+                      -ms-transform: translateZ(0);
+                      transform: translateZ(0);
+                    }
+                    .spinner:before,
+                    .spinner:after {
+                      position: absolute;
+                      content: "";
+                    }
+                    .spinner:before {
+                      width: 10.4px;
+                      height: 20.4px;
+                      background: #5469d4;
+                      border-radius: 20.4px 0 0 20.4px;
+                      top: -0.2px;
+                      left: -0.2px;
+                      -webkit-transform-origin: 10.4px 10.2px;
+                      transform-origin: 10.4px 10.2px;
+                      -webkit-animation: loading 2s infinite ease 1.5s;
+                      animation: loading 2s infinite ease 1.5s;
+                    }
+                    .spinner:after {
+                      width: 10.4px;
+                      height: 10.2px;
+                      background: #5469d4;
+                      border-radius: 0 10.2px 10.2px 0;
+                      top: -0.1px;
+                      left: 10.2px;
+                      -webkit-transform-origin: 0px 10.2px;
+                      transform-origin: 0px 10.2px;
+                      -webkit-animation: loading 2s infinite ease;
+                      animation: loading 2s infinite ease;
+                    }
+
+                    @-webkit-keyframes loading {
+                      0% {
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                      }
+                      100% {
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      }
+                    }
+                    @keyframes loading {
+                      0% {
+                        -webkit-transform: rotate(0deg);
+                        transform: rotate(0deg);
+                      }
+                      100% {
+                        -webkit-transform: rotate(360deg);
+                        transform: rotate(360deg);
+                      }
+                    }
+                  </style>
+                  <div id="card-info" class="p-3"></div>
+                  <div id="card-error" role="alert"></div>
+                  <p class="result-message hidden">
+                    Payment succeeded, see the result in your
+                    <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button type="button" class="btn btn-primary btn-lg btn-block text-uppercase ls-1"
+                (click)="pay()">
+                  <span style="font-size: 1em;">Join yatta! — {{textCheckout}}</span><br>
+                  <span class= "mt--3" style="font-size: 0.15em;">Premium subscription</span>
+                </button>
+                <span style="font-size: x-small;">Payments are securely processed via <a href="https://stripe.com">Stripe</a> 🔐</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

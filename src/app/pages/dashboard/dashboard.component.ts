@@ -44,8 +44,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private twitterService: TwitterService,
     private authService: AuthenticationService, 
-    location: Location,  
-    private element: ElementRef, 
+    location: Location,
     private router: Router) {
 
     this.location = location;
@@ -202,18 +201,18 @@ export class DashboardComponent implements OnInit {
     this.isDemo = true;
   }
 
-  loginTT() {
-    this.authService.loginWithTwitter().then(result => {
-      console.log(result);
+  async loginTT() {
+    const result = await this.authService.loginWithTwitter();
+    
+    console.log(result);
 
-      this.profile = result.profile.data;
+    this.profile = result.profile.data;
 
-      this.isLogged = true;
+    this.isLogged = true;
 
-      this.isDemo = false;
+    this.isDemo = false;
 
-      this.getMine();
-    });
+    this.getMine();
   }
 
   logout() {

@@ -939,8 +939,8 @@ $tooltip-font-size:                 $font-size-sm !default;
 
 $modal-inner-padding:               1.5rem !default;
 
-$modal-lg:                          800px !default;
-$modal-md:                          500px !default;
+$modal-lg:                          1000px !default;
+$modal-md:                          600px !default;
 $modal-sm:                          380px !default;
 
 $modal-title-line-height:           1.1;
@@ -953,7 +953,7 @@ $modal-content-box-shadow-xs:       0 15px 35px rgba(50,50,93,.2), 0 5px 15px rg
 $modal-content-box-shadow-sm-up:    0 15px 35px rgba(50,50,93,.2), 0 5px 15px rgba(0,0,0,.17);
 
 $modal-backdrop-bg:           $black !default;
-$modal-backdrop-opacity:      .16 !default;
+$modal-backdrop-opacity:      .85 !default;
 $modal-header-border-color:   $gray-200 !default;
 $modal-footer-border-color:   $modal-header-border-color !default;
 $modal-header-border-width:   $modal-content-border-width !default;
