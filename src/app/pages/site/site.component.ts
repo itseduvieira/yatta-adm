@@ -13,11 +13,13 @@ import { Router } from '@angular/router';
   templateUrl: './site.component.html',
   styleUrls: ['./site.component.scss']
 })
-export class SiteComponent implements OnInit {
+export class SiteComponent implements OnInit, AfterViewInit {
 
   stripe: any;
   data: any;
   card: any;
+
+  @ViewChild('pricing', { static: false }) pricing: ElementRef;
 
   constructor(
     private modalService: NgbModal,
@@ -27,9 +29,15 @@ export class SiteComponent implements OnInit {
   ) {
     
   }
+  ngAfterViewInit(): void {
+    const url = this.router.url;
+    if(url.indexOf('/payment') > -1) {
+      this.pricing.nativeElement.click();
+    }
+  }
 
   ngOnInit() {
-
+    
   }
 
   openModal(content) {

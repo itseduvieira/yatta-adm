@@ -6,7 +6,7 @@
     <div>
       
       <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1"
-        style="cursor: pointer; font-size: 0.7em;" (click)="openModal(content)">Pricing</a>
+        style="cursor: pointer; font-size: 0.7em;" (click)="openModal(content)" #pricing>Pricing</a>
       <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;"
         [routerLink]="['/dash/demo']">Live demo</a>
       <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#about"
@@ -130,7 +130,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" style="z-index: 1000;" class="close" data-dismiss="modal" aria-label="Close" (click)="c('Close click')">
+      <button type="button" style="z-index: 1000;" class="close" data-dismiss="modal" aria-label="Close" (click)="c('Close click')" [routerLink]="['/']">
         <span aria-hidden="true">×</span>
       </button>
     </div>

@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
       this.isLogged = false;
       this.isDemo = false;
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/']);
     });
   }
 }

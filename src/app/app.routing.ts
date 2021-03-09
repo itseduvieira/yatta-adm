@@ -9,12 +9,17 @@ import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component
 import { AuthGuard } from './guards/auth-guard.service';
 
 const routes: Routes =[
-  // {
-  //   path: '',
-  //   redirectTo: 'dashboard',
-  //   pathMatch: 'full',
-  // }, 
-  
+  {
+    path: '',
+    component: SiteLayoutComponent,
+    pathMatch: 'full',
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
+      }
+    ],
+  },
   {
     path: 'dash',
     component: AdminLayoutComponent,
@@ -26,18 +31,8 @@ const routes: Routes =[
     ],
     // canActivate: [AuthGuard]
   }, {
-    path: 'home',
-    component: SiteLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
-      }
-    ],
-    // canActivate: [AuthGuard]
-  }, {
     path: '**',
-      redirectTo: 'home'
+      redirectTo: ''
   }
 ];
 
