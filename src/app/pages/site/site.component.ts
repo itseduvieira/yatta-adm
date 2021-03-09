@@ -19,6 +19,8 @@ export class SiteComponent implements OnInit, AfterViewInit {
   data: any;
   card: any;
 
+  isChecked: boolean = false;
+
   @ViewChild('pricing', { static: false }) pricing: ElementRef;
 
   constructor(
@@ -40,108 +42,65 @@ export class SiteComponent implements OnInit, AfterViewInit {
     
   }
 
+  check(event) {
+    this.isChecked = event.srcElement.checked;
+  }
+
   openModal(content) {
     of(loadStripe(environment.stripeKey, { locale: 'en' }))
       .pipe(first())
       .subscribe(async result => {
+        this.stripe = await result;
 
-        const stripe = await result;
-        
-        this.stripe = stripe;
+        this.modalService.open(content, { size: 'lg', backdrop: 'static' });
 
-        console.log(stripe);
+        var elements = this.stripe.elements();
+        this.card = elements.create('card', {
+          hidePostalCode: true,
+          style: {
+            base: {
+              color: "#525f7f",
+              fontFamily: 'Open Sans, sans-serif',
+              fontSmoothing: "antialiased",
+              fontSize: "1em",
+              "::placeholder": {
+                color: "#525f7f"
+              }
+            },
+            invalid: {
+              fontFamily: 'Open Sans, sans-serif',
+              color: "#fa755a",
+              iconColor: "#fa755a"
+            }
+          } 
+        });
 
-        this.paymentService.createIntent({id: 'xl-thirt'})
-          .pipe(first())
-          .subscribe(data => {
-            this.data = data;
-
-            this.modalService.open(content, { size: 'lg', backdrop: 'static' });
-
-            var elements = stripe.elements();
-            this.card = elements.create('card', { 
-              // iconStyle: 'solid',
-              style: {
-                base: {
-                  color: "#525f7f",
-                  fontFamily: 'Open Sans, sans-serif',
-                  fontSmoothing: "antialiased",
-                  fontSize: "1em",
-                  "::placeholder": {
-                    color: "#525f7f"
-                  }
-                },
-                invalid: {
-                  fontFamily: 'Open Sans, sans-serif',
-                  color: "#fa755a",
-                  iconColor: "#fa755a"
-                }
-              } 
-            });
-
-            this.card.mount('#card-info');
-          });
+        this.card.mount('#card-info');
       });
   }
-
-  pay() {
-    this.payWithCard(this.stripe, this.card, this.data.clientSecret);
-  }
-
   async checkTwitter() {
     await this.authService.loginWithTwitter();
 
     this.router.navigate(['/dash']);
   }
 
-  payWithCard(stripe, card, clientSecret) {
-    this.loading(true);
-    stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card
-        }
-      })
-      .then(function(result) {
+  async payWithCard() {
+    this.paymentService.createIntent({ billing: this.isChecked ? 'year' : 'month' })
+      .pipe(first())
+      .subscribe(async data => {
+        this.data = data;
+
+        const result = await this.stripe.confirmCardPayment(this.data.clientSecret, {
+          payment_method: {
+            card: this.card
+          }
+        });
+        
         if (result.error) {
-          this.showError(result.error.message);
+          console.log(result.error.message);
         } else {
-          this.orderComplete(result.paymentIntent.id);
+          console.log('https://dashboard.stripe.com/test/payments/' + result.paymentIntent.id);
         }
       });
   };
-
-  orderComplete(paymentIntentId) {
-    this.loading(false);
-    document
-      .querySelector('.result-message a')
-      .setAttribute(
-        'href',
-        'https://dashboard.stripe.com/test/payments/' + paymentIntentId
-      );
-    // document.querySelector('.result-message').classList.remove('hidden');
-    // document.querySelector('button').disabled = true;
-  };
-
-  showError(errorMsgText) {
-    this.loading(false);
-    var errorMsg = document.querySelector('#card-error');
-    errorMsg.textContent = errorMsgText;
-    setTimeout(function() {
-      errorMsg.textContent = '';
-    }, 4000);
-  };
-
-  loading(isLoading) {
-    if (isLoading) {
-      // document.querySelector('button').disabled = true;
-      // document.querySelector('#spinner').classList.remove('hidden');
-      // document.querySelector('#button-text').classList.add('hidden');
-    } else {
-      // document.querySelector('button').disabled = false;
-      // document.querySelector('#spinner').classList.add('hidden');
-      // document.querySelector('#button-text').classList.remove('hidden');
-    }
-  };
-
 }

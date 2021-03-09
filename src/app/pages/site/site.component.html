@@ -198,7 +198,7 @@
               <div class="col-4" style="text-align: center;">
                 <div class="form-group">
                   <label class="custom-toggle">
-                    <input #billing type="checkbox">
+                    <input #billing type="checkbox" (change)="check($event)">
                     <span class="custom-toggle-slider rounded-circle"></span>
                   </label>
                 </div>
@@ -339,18 +339,13 @@
                     }
                   </style>
                   <div id="card-info" class="p-3"></div>
-                  <div id="card-error" role="alert"></div>
-                  <p class="result-message hidden">
-                    Payment succeeded, see the result in your
-                    <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to pay again.
-                  </p>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-12">
                 <button type="button" class="btn btn-primary btn-lg btn-block text-uppercase ls-1"
-                (click)="pay()">
+                (click)="payWithCard()">
                   <span style="font-size: 1em;">Join yatta! — {{ billing.checked ? '$24/year' : '$3/month' }}</span><br>
                   <span class= "mt--3" style="font-size: 0.15em;">Premium subscription</span>
                 </button>
