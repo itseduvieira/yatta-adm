@@ -83,7 +83,7 @@
 
               <p>
                 <button type="button" class="btn btn-primary m-5 p-3 pl-5 pr-5 text-uppercase ls-1" style="font-size: 0.8em;"
-                  [routerLink]="['/']">⏰ Find your best time right now</button>
+                (click)="checkTwitter()">⏰ Find your best time right now</button>
               </p>
             </div>
           </div>
@@ -137,11 +137,55 @@
     <div class="modal-body mt--5 pt-5 pb-5">
       <div class="container">
         <div class="row">
-          <div class="col-6" style="text-align: center;">
-            <h6 class="text-uppercase text-light ls-1 mb-1">Yet Another Twitter Analytics</h6>
-            <h2 class="h1 mb-3">⏰ yatta! analytics</h2>
+          <div class="col col-md-6 pl-1 pr-1">
+            <div class="row">
+              <div class="col" style="text-align: center;">
+                <h6 class="text-uppercase text-light ls-1 mb-1">yatta! analytics</h6>
+                <h2 class="h2 mb-2">Does your audience stay up all night?</h2>
+                <h2 class="h4" style="color: #999;">⏰ Find it out with yatta!</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="card card-stats mt-4 ml-5 mr-5 mb-xl-0" style="min-height: 122px;">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Best time to Tweet</h5>
+                        <span class="h2 font-weight-bold mb-0" style="font-size: 1.2rem;">Every 1AM</span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                          <i class="fas fa-clock"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-muted text-sm">
+                      <span class="text-success mr-2"><i class="fas fa-bell"></i> 1390 interactions</span>
+                      <span class="text-nowrap">at this time</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col pt-4 pl-5 pr-5">
+                <h4>🛠 yatta! is a lightweight tool</h4>
+                <p style="font-size: .9em;">
+                  Meaning we don't store any data, nor send any emails
+                </p>
+                <h4>✨ It's easy and simple</h4>
+                <p style="font-size: .9em;">
+                  Just sign in with your Twitter account, and you're good to go
+                </p>
+                <h4>🚫 Cancel anytime</h4>
+                <p style="font-size: .9em;">
+                  No strings attached, cancel your subscription anytime you want
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="col-6">
+          <div class="col col-md-6">
             <div class="row">
               <div class="col" style="text-align: center;">
                 <h6 class="text-uppercase ls-1 mb-4" style="color: #525f7f;">Billing type</h6>
@@ -149,12 +193,12 @@
             </div>
             <div class="row">
               <div class="col-4" style="text-align: right;">
-                <h6 class="text-uppercase ls-1" [ngClass]="{'text-light': billing.checked, 'text-blue': !billing.checked}">Pay montly</h6>
+                <h6 class="text-uppercase ls-1" [ngClass]="{'text-light': billing.checked, 'text-blue': !billing.checked}">Pay monthly</h6>
               </div>
               <div class="col-4" style="text-align: center;">
                 <div class="form-group">
                   <label class="custom-toggle">
-                    <input #billing type="checkbox" (change)="changeBilling(billing.checked)">
+                    <input #billing type="checkbox">
                     <span class="custom-toggle-slider rounded-circle"></span>
                   </label>
                 </div>
@@ -164,21 +208,17 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12" style="text-align: center;">
-                <span style="font-size: small;">Your card will be charged {{ billing.checked ? '$24 annually' : '$3 montly' }}</span>
+              <div class="col-12 pt-4 " style="text-align: center;">
+                <h1 style="font-size: 3.6em; font-weight: 800;color: #5e72e4;">
+                  
+                  <s *ngIf="billing.checked" class="text-light">$3</s> 
+                  {{ billing.checked ? '$2' : '$3' }}/mo
+                </h1>
               </div>
             </div>
             <div class="row">
-              <div class="col-12 pt-4 pb-4" style="text-align: center;">
-                <!-- <div class="form-group" style="text-align: center;">
-                  <button type="button" class="btn btn-outline-primary text-uppercase ls-1" style="font-size: 0.75em;"
-                    (click)="checkTwitter()">⏰ Connect with Twitter</button>
-                </div> -->
-
-                <h1 style="font-size: 3.6em; font-weight: 800;color: #5e72e4;">
-                  <s *ngIf="billing.checked" class="text-light">$3</s> 
-                  {{montly}}/mo
-                </h1>
+              <div class="col-12 mt--3 pb-5" style="text-align: center;">
+                <span style="font-size: x-small;">Pay {{ billing.checked ? '$24 annually (save 30% vs monthly)' : '$3 monthly ($36 per year)' }}<br>Cancel anytime</span>
               </div>
             </div>
             <div class="row">
@@ -311,7 +351,7 @@
               <div class="col-12">
                 <button type="button" class="btn btn-primary btn-lg btn-block text-uppercase ls-1"
                 (click)="pay()">
-                  <span style="font-size: 1em;">Join yatta! — {{textCheckout}}</span><br>
+                  <span style="font-size: 1em;">Join yatta! — {{ billing.checked ? '$24/year' : '$3/month' }}</span><br>
                   <span class= "mt--3" style="font-size: 0.15em;">Premium subscription</span>
                 </button>
                 <span style="font-size: x-small;">Payments are securely processed via <a href="https://stripe.com">Stripe</a> 🔐</span>

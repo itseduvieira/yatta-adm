@@ -19,10 +19,6 @@ export class SiteComponent implements OnInit {
   data: any;
   card: any;
 
-  textCheckout = '$3/MONTH';
-  montly = '$3';
-  annually = '$36';
-
   constructor(
     private modalService: NgbModal,
     private authService: AuthenticationService, 
@@ -34,12 +30,6 @@ export class SiteComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-
-  changeBilling(checked: boolean) {
-    this.textCheckout = checked ? '$24/YEAR' : '$3/MONTH';
-    this.montly = checked ? '$2' : '$3';
-    this.annually = checked ? '$24' : '$36';
   }
 
   openModal(content) {
