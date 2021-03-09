@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
         .pipe(first())
         .subscribe(user => {
           if(this.currentUser) {
-            this.profile = this.currentUser.profile.data;
+            this.profile = this.currentUser.profile;
 
             this.isLogged = true;
 
@@ -194,7 +194,7 @@ export class DashboardComponent implements OnInit {
 
     this.getMine();
 
-    this.profile = user.profile.data;
+    this.profile = user.profile;
 
     this.isLogged = true;    
 
@@ -206,7 +206,7 @@ export class DashboardComponent implements OnInit {
     
     console.log(result);
 
-    this.profile = result.profile.data;
+    this.profile = result.profile;
 
     this.isLogged = true;
 
