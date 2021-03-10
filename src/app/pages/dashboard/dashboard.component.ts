@@ -202,7 +202,7 @@ export class DashboardComponent implements OnInit {
   async loginTT() {
     const user = await this.authService.loginWithTwitter();
 
-    if(user.profile.subscription.active) {
+    if(user.profile.subscription.status === 'active') {
       this.profile = user.profile;
 
       this.isLogged = true;

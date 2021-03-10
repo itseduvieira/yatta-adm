@@ -29,8 +29,8 @@ export class AuthenticationService {
 
       // let token = await result.user.getIdToken(true)
       let token = 'demo';
-
-      const me = await this.twitterService.me(credential.accessToken, credential.secret, token).toPromise();
+      let uid = result.user.uid;
+      const me = await this.twitterService.me(uid, credential.accessToken, credential.secret, token).toPromise();
 
       const user = {
         profile: me,

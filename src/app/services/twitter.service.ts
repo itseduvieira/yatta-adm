@@ -28,11 +28,12 @@ export class TwitterService {
     return this.http.get<any>(`${environment.apiUrl}/tt/stats`, this.options);
   }
   
-  me(accessToken, accessTokenSecret, token) {
+  me(uid, accessToken, accessTokenSecret, token) {
     this.options = {
       headers : new HttpHeaders({
         'X-Access-Token': accessToken,
         'X-Access-Token-Secret': accessTokenSecret,
+        'X-Auth-Uid': uid,
         'Authorization': `Bearer ${token}`
       })
     };

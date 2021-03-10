@@ -87,7 +87,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
   async checkTwitter() {
     const user = await this.authService.loginWithTwitter();
 
-    if(user.profile.subscription.active) {
+    if(user.profile.subscription.status === 'active') {
       this.router.navigate(['/dash']);
     } else {
       this.router.navigate(['/payment']);
@@ -111,7 +111,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
       console.log(result);
     } else {
       this.paymentService.createSubscription({
-        customerId: currentUser.profile.id_str,
+        customerId: currentUser.profile.subscription.customerId,
         paymentMethodId: result.paymentMethod.id,
         priceId: this.isChecked ? environment.priceAnnual : environment.priceMonthly,
       })
