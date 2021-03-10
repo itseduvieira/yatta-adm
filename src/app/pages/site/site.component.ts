@@ -19,7 +19,9 @@ export class SiteComponent implements OnInit, AfterViewInit {
   data: any;
   card: any;
 
-  isChecked: boolean = false;
+  isChecked: boolean;
+  isComplete: boolean;
+  isLoading: boolean;
 
   @ViewChild('pricing', { static: false }) pricing: ElementRef;
 
@@ -42,10 +44,6 @@ export class SiteComponent implements OnInit, AfterViewInit {
     
   }
 
-  check(event) {
-    this.isChecked = event.srcElement.checked;
-  }
-
   openModal(content) {
     of(loadStripe(environment.stripeKey, { locale: 'en' }))
       .pipe(first())
@@ -53,6 +51,9 @@ export class SiteComponent implements OnInit, AfterViewInit {
         this.stripe = await result;
 
         this.modalService.open(content, { size: 'lg', backdrop: 'static' });
+
+        this.isChecked = true;
+        this.isLoading = false;
 
         var elements = this.stripe.elements();
         this.card = elements.create('card', {
@@ -76,31 +77,48 @@ export class SiteComponent implements OnInit, AfterViewInit {
         });
 
         this.card.mount('#card-info');
-      });
-  }
-  async checkTwitter() {
-    await this.authService.loginWithTwitter();
-
-    this.router.navigate(['/dash']);
-  }
-
-  async payWithCard() {
-    this.paymentService.createIntent({ billing: this.isChecked ? 'year' : 'month' })
-      .pipe(first())
-      .subscribe(async data => {
-        this.data = data;
-
-        const result = await this.stripe.confirmCardPayment(this.data.clientSecret, {
-          payment_method: {
-            card: this.card
-          }
+        this.card.on('change', event => {
+          this.isComplete = event.complete;
+          console.log(event);
         });
-        
-        if (result.error) {
-          console.log(result.error.message);
-        } else {
-          console.log('https://dashboard.stripe.com/test/payments/' + result.paymentIntent.id);
-        }
       });
+  }
+
+  async checkTwitter() {
+    const user = await this.authService.loginWithTwitter();
+
+    if(user.profile.subscription.active) {
+      this.router.navigate(['/dash']);
+    } else {
+      this.router.navigate(['/payment']);
+    }
+  }
+
+  async subscribe() {
+    this.isLoading = true;
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    const result = await this.stripe.createPaymentMethod({
+      type: 'card',
+      card: this.card,
+      billing_details: {
+        name: currentUser.profile.screen_name,
+      },
+    });
+
+    if (result.error) {
+      console.log(result);
+    } else {
+      this.paymentService.createSubscription({
+        customerId: currentUser.profile.id_str,
+        paymentMethodId: result.paymentMethod.id,
+        priceId: this.isChecked ? environment.priceAnnual : environment.priceMonthly,
+      })
+        .pipe(first())
+        .subscribe(result => {
+          console.log(result);
+        });
+    }
   };
 }

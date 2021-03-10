@@ -180,11 +180,9 @@ export class DashboardComponent implements OnInit {
   loginDemo() {
     const user = {
       profile: {
-        data: {
-          name: 'Jonas Marra',
-          screen_name: 'marrajonas_',
-          profile_image_url: '//bit.ly/3dPV66u'
-        }
+        name: 'Jonas Marra',
+        screen_name: 'marrajonas_',
+        profile_image_url: '//bit.ly/3dPV66u'
       },
       accessToken: 'demo',
       accessTokenSecret: 'demo'
@@ -202,17 +200,19 @@ export class DashboardComponent implements OnInit {
   }
 
   async loginTT() {
-    const result = await this.authService.loginWithTwitter();
-    
-    console.log(result);
+    const user = await this.authService.loginWithTwitter();
 
-    this.profile = result.profile;
+    if(user.profile.subscription.active) {
+      this.profile = user.profile;
 
-    this.isLogged = true;
+      this.isLogged = true;
 
-    this.isDemo = false;
+      this.isDemo = false;
 
-    this.getMine();
+      this.getMine();
+    } else {
+      this.router.navigate(['/payment']);
+    }
   }
 
   logout() {
@@ -230,12 +230,12 @@ export class DashboardComponent implements OnInit {
         this.activityChart.destroy();
       }
       this.activityChart = null;
-      this.info = null;
-  
-      this.isLogged = false;
-      this.isDemo = false;
+      this.info = null;      
 
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(() =>{
+        this.isLogged = false;
+        this.isDemo = false;
+      });
     });
   }
 }

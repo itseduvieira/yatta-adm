@@ -6,8 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { SiteLayoutComponent } from './layouts/site-layout/site-layout.component';
 
-import { AuthGuard } from './guards/auth-guard.service';
-
 const routes: Routes =[
   {
     path: '',
@@ -17,7 +15,17 @@ const routes: Routes =[
       {
         path: '',
         loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
-      }
+      },
+    ],
+  },
+  {
+    path: 'payment',
+    component: SiteLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
+      },
     ],
   },
   {
@@ -29,7 +37,6 @@ const routes: Routes =[
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }
     ],
-    // canActivate: [AuthGuard]
   }, {
     path: '**',
       redirectTo: ''

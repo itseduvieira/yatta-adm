@@ -27,4 +27,20 @@ export class PaymentService {
     return this.http.post<any>(`${environment.apiUrl}/payment/intent`, product, this.options);
   }
 
+  createSubscription(info: any) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(user) {
+      this.options = {
+        headers : new HttpHeaders({
+          'X-Access-Token': user.accessToken,
+          'X-Access-Token-Secret': user.accessTokenSecret,
+          'Authorization': `Bearer ${user.token}`
+        })
+      };
+    }
+
+    return this.http.post<any>(`${environment.apiUrl}/payment/subscription`, info, this.options);
+  }
+
 }
