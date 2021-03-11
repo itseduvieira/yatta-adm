@@ -69,15 +69,15 @@
           </div>
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
-          <a href="{{ profile.subscription.customerPortal }}" class="dropdown-item">
+          <a *ngIf="profile.subscription" style="cursor: pointer; color: #5e72e4;" (click)="customerPortal()" class="dropdown-item">
             <i class="fas fa-address-card"></i>
             <span>My subscription</span>
           </a>
-          <a target="_blank" href="https://twitter.com/messages/compose?recipient_id=72183014&text=Help%20me,%20please!" class="dropdown-item">
+          <a target="_blank" style="color: #5e72e4;" href="https://twitter.com/messages/compose?recipient_id=72183014&text=Help%20me,%20please!" class="dropdown-item">
             <i class="fab fa-twitter"></i>
             <span>Support</span>
           </a>
-          <a (click)="logout()" class="dropdown-item">
+          <a (click)="logout()" class="dropdown-item" style="color: #5e72e4;">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
           </a>
@@ -126,7 +126,7 @@
                   </div>
                 </div>
               </div>
-              <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
+              <p *ngIf="false" class="mt-3 mb-0 text-muted text-sm">
                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> Click here</span>
                 <span class="text-nowrap"> to improve accuracy</span>
               </p>

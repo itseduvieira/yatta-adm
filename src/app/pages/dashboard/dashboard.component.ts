@@ -13,6 +13,7 @@ import {
   hourlyActivity
 } from "../../variables/charts";
 import { first } from 'rxjs/operators';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private twitterService: TwitterService,
     private authService: AuthenticationService, 
+    private paymentService: PaymentService,
     location: Location,
     private router: Router) {
 
@@ -237,5 +239,13 @@ export class DashboardComponent implements OnInit {
         this.isDemo = false;
       });
     });
+  }
+
+  async customerPortal() {
+    this.paymentService.getPortalUrl()
+      .pipe(first())
+      .subscribe(result => {
+        window.location.href = result.url;
+      });
   }
 }
