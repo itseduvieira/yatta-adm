@@ -6,7 +6,7 @@
         <a class="h4 text-uppercase" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
       </div>
     </div>
-    <div *ngIf="!isLogged" class="row">
+    <div *ngIf="!isLogged && isLoaded" class="row">
       <div class="col-xl m-2">
         <button type="button" class="btn btn-primary d-lg-inline-block text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Login with Twitter</button>
       </div>
@@ -49,7 +49,7 @@
   <div class="container-fluid" style="min-height: 56px;">
     <span class="h4 mb-0 text-white d-none d-lg-inline-block" style="font-size: 1em;">⏰ yatta! dashboard</span>
     
-    <div *ngIf="!isLogged">
+    <div *ngIf="!isLogged && isLoaded">
       <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1" style="cursor: pointer; font-size: 0.8em;" [routerLink]="['/dash/demo']">Live demo</a>
       <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1" style="font-size: 0.8em;color:#4150a5;" (click)="loginTT()">⏰ Find your best time right now</button>
     </div>

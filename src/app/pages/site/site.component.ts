@@ -106,8 +106,6 @@ export class SiteComponent implements OnInit, AfterViewInit {
     if(user.profile.subscription.status === 'active') {
       this.router.navigate(['/dash']);
     } else {
-      // localStorage.clear();
-
       this.router.navigate(['/payment']);
     }
   }
@@ -139,12 +137,9 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
   async confirmPayment() {  
     if(this.nextActionUrl) {
-      window.open(this.nextActionUrl, '_blank');
+      window.location.href = this.nextActionUrl;
 
       this.nextActionUrl = null;
-      this.title = 'Action required: check your subscription status';
-      this.subtitle = 'Hit the button below to check your payment';
-      this.imgFeedback = '/assets/img/success.png';
     } else {
       this.router.navigate(['/dash']);
     }
@@ -177,33 +172,40 @@ export class SiteComponent implements OnInit, AfterViewInit {
         .pipe(catchError(error => {
           return throwError(error);
         }))
-        .subscribe(result => {
-          this.requestComplete = true;
+        .subscribe(async result => {
 
           const lastPaymentIntent = result.latest_invoice.payment_intent;
+
           if(lastPaymentIntent.status === 'requires_action') {
+            
+            const confirm = await this.stripe.confirmPaymentIntent(
+              lastPaymentIntent.client_secret,
+              {
+                payment_method: lastPaymentIntent.payment_method,
+                return_url: `${window.location.origin}/#/dash`
+              }
+            );
+
             this.title = 'Action required: confirm the payment';
             this.subtitle = 'Hit the button below to confirm the payment, then log in again to check you subscription status';
             this.imgFeedback = '/assets/img/confirm.png';
 
-            if(lastPaymentIntent.next_action.type === 'use_stripe_sdk') {
-              this.nextActionUrl = lastPaymentIntent.next_action.use_stripe_sdk.stripe_js;
-            } else {
-              this.nextActionUrl = lastPaymentIntent.next_action.redirect_to_url.url;
-            }
+            this.nextActionUrl = confirm.paymentIntent.next_action.redirect_to_url.url;
 
-            console.log(this.nextActionUrl);
+            this.requestComplete = true;
           } else {
             this.title = 'Hooray! Your payment has succeeded, you are good to go';
             this.subtitle = 'Enjoy your subscription and take full advantage of yatta! right now';
             this.imgFeedback = '/assets/img/success.png';
+
+            this.requestComplete = true;
           }
         }, result => {
-          this.requestComplete = true;
-          
           this.title = `We have an issue processing your payment: ${result.error.error.message}`;
           this.subtitle = 'Please check if your card is valid, if it has enough funds and it can be charged in US$';
           this.imgFeedback = '/assets/img/fail.png';
+
+          this.requestComplete = true;
         })
     }
   }

@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
   public profile: any;
   public isLogged = false;
   public isDemo = false;
+  public isLoaded = false;
 
   constructor(
     private twitterService: TwitterService,
@@ -69,9 +70,13 @@ export class DashboardComponent implements OnInit {
 
             this.isLogged = true;
 
+            this.isLoaded = true;
+
             this.isDemo = false;
 
             this.getMine();
+          } else {
+            this.isLoaded = true;
           }
         });
     }
@@ -205,7 +210,9 @@ export class DashboardComponent implements OnInit {
 
     this.profile = user.profile;
 
-    this.isLogged = true;    
+    this.isLogged = true;
+    
+    this.isLoaded = true;
 
     this.isDemo = true;
   }
@@ -219,6 +226,8 @@ export class DashboardComponent implements OnInit {
       this.isLogged = true;
 
       this.isDemo = false;
+
+      this.isLoaded = true;
 
       this.getMine();
     } else {
@@ -237,6 +246,7 @@ export class DashboardComponent implements OnInit {
       this.days = null;
       this.timeInteractions = null;
       this.profile = null;
+      this.isLoaded = false;
       if(this.activityChart) {
         this.activityChart.destroy();
       }
