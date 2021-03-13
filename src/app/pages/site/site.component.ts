@@ -106,6 +106,8 @@ export class SiteComponent implements OnInit, AfterViewInit {
     if(user.profile.subscription.status === 'active') {
       this.router.navigate(['/dash']);
     } else {
+      // localStorage.clear();
+
       this.router.navigate(['/payment']);
     }
   }

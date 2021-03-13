@@ -19,6 +19,7 @@ export class TwitterService {
         headers : new HttpHeaders({
           'X-Access-Token': user.accessToken,
           'X-Access-Token-Secret': user.accessTokenSecret,
+          'X-Auth-Uid': user.uid,
           'Authorization': `Bearer ${user.token}`
         }),
         params: new HttpParams().set("offset", new Date().getTimezoneOffset().toString())
@@ -26,19 +27,6 @@ export class TwitterService {
     }
 
     return this.http.get<any>(`${environment.apiUrl}/twitter/stats`, this.options);
-  }
-  
-  me(uid, accessToken, accessTokenSecret, token) {
-    this.options = {
-      headers : new HttpHeaders({
-        'X-Access-Token': accessToken,
-        'X-Access-Token-Secret': accessTokenSecret,
-        'X-Auth-Uid': uid,
-        'Authorization': `Bearer ${token}`
-      })
-    };
-
-    return this.http.get<any[]>(`${environment.apiUrl}/twitter/me`, this.options);
   }
 
 }

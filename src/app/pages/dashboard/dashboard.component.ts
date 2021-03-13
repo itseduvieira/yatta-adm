@@ -81,8 +81,6 @@ export class DashboardComponent implements OnInit {
     this.twitterService.getMine()
       .pipe(first())
       .subscribe(tweets => {
-        console.log(tweets);
-
         this.tweetCount = `Last ${tweets.count} tweets`;
 
         this.interactions = `${tweets.rts + tweets.favs} interactions`;
@@ -108,6 +106,10 @@ export class DashboardComponent implements OnInit {
         this.timeInteractions = tweets.frequency[tweets.bestTime];
 
         this.loadCharts(tweets.frequency);
+    }, result => {
+      if(result.status === 402) {
+        this.logout();
+      }
     })
   }
 
@@ -187,13 +189,17 @@ export class DashboardComponent implements OnInit {
       profile: {
         name: 'Jonas Marra',
         screen_name: 'marrajonas_',
-        profile_image_url: '//bit.ly/3dPV66u'
+        profile_image_url: '//bit.ly/3dPV66u',
+        statuses_count: 50
       },
       accessToken: 'demo',
-      accessTokenSecret: 'demo'
+      accessTokenSecret: 'demo',
+      uid: 'demo'
     };
 
     localStorage.setItem('currentUser', JSON.stringify(user));
+
+    this.currentUser = user;
 
     this.getMine();
 
