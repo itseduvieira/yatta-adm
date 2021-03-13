@@ -96,7 +96,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Best time</h5>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Best time to tweet</h5>
                   <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ bestTime }}</span>
                 </div>
                 <div class="col-auto">
@@ -126,9 +126,9 @@
                   </div>
                 </div>
               </div>
-              <p *ngIf="false" class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> Click here</span>
-                <span class="text-nowrap"> to improve accuracy</span>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2"><i class="fab fa-twitter"></i> {{ tweetCountTotal }}%</span>
+                <span class="text-nowrap"> of your total tweets</span>
               </p>
             </div>
           </div>

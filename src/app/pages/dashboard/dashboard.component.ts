@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
   public rts;
   public favs;
   public days;
+  public tweetCountTotal;
   public info: any;
   public activityChart;
 
@@ -87,6 +88,8 @@ export class DashboardComponent implements OnInit {
         this.interactions = `${tweets.rts + tweets.favs} interactions`;
         this.rts = tweets.rts;
         this.favs = tweets.favs;
+        
+        this.tweetCountTotal = Math.trunc(this.currentUser.profile.statuses_count / tweets.count * 100);
 
         const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
         const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');

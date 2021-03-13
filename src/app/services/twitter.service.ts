@@ -25,7 +25,7 @@ export class TwitterService {
       };
     }
 
-    return this.http.get<any>(`${environment.apiUrl}/tt/stats`, this.options);
+    return this.http.get<any>(`${environment.apiUrl}/twitter/stats`, this.options);
   }
   
   me(uid, accessToken, accessTokenSecret, token) {
@@ -38,7 +38,7 @@ export class TwitterService {
       })
     };
 
-    return this.http.get<any[]>(`${environment.apiUrl}/tt/me`, this.options);
+    return this.http.get<any[]>(`${environment.apiUrl}/twitter/me`, this.options);
   }
 
 }
