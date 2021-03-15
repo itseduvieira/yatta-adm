@@ -237,23 +237,23 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.authService.logout().then(result => {
-      this.bestTime = null;
-      this.tweetCount = null;
-      this.interactions = null;
-      this.term = null;
-      this.rts = null;
-      this.favs = null;
-      this.days = null;
-      this.timeInteractions = null;
-      this.profile = null;
-      this.isLoaded = false;
-      if(this.activityChart) {
-        this.activityChart.destroy();
-      }
-      this.activityChart = null;
-      this.info = null;      
-
       this.router.navigate(['/']).then(() =>{
+        this.bestTime = null;
+        this.tweetCount = null;
+        this.interactions = null;
+        this.term = null;
+        this.rts = null;
+        this.favs = null;
+        this.days = null;
+        this.timeInteractions = null;
+        this.profile = null;
+        this.isLoaded = false;
+        if(this.activityChart) {
+          this.activityChart.destroy();
+        }
+        this.activityChart = null;
+        this.info = null;
+
         this.isLogged = false;
         this.isDemo = false;
       });
