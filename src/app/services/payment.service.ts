@@ -73,8 +73,29 @@ export class PaymentService {
     }
 
     return this.http.post<any>(`${environment.apiUrl}/payment/checkout`, {
-        returnUrl: `${window.location.origin}/#/dash`,
+        returnUrl: window.location.origin,
         priceId: priceId
+    }, this.options);
+  }
+
+  updateCustomer(sessionId: string, uid: string, twitterId: string, screenName: string) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(user) {
+      this.options = {
+        headers : new HttpHeaders({
+          'X-Access-Token': user.accessToken,
+          'X-Access-Token-Secret': user.accessTokenSecret,
+          'Authorization': `Bearer ${user.token}`
+        })
+      };
+    }
+
+    return this.http.put<any>(`${environment.apiUrl}/payment/customer`, {
+        sessionId: sessionId,
+        uid: uid,
+        twitterId: twitterId,
+        screenName: screenName
     }, this.options);
   }
 }

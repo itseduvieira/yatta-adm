@@ -116,16 +116,20 @@ export class SiteComponent implements OnInit, AfterViewInit {
     async checkout() {
         this.isLoading = true;
 
-        let currentUser = await this.authService.loginWithTwitter();
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        if (currentUser.profile.subscription &&
-            currentUser.profile.subscription.status === 'active') {
-            this.requestComplete = true;
-            this.title = 'You already have an active subscription'
-            this.subtitle = 'Don\'t worry, your card wasn\'t charged at all. Just take advantage of yatta! features';
-            this.imgFeedback = '/assets/img/success.png';
+        if(!currentUser) {
+            currentUser = await this.authService.loginWithTwitter();
 
-            return Promise.resolve();
+            if (currentUser.profile.subscription &&
+                currentUser.profile.subscription.status === 'active') {
+                this.requestComplete = true;
+                this.title = 'You already have an active subscription'
+                this.subtitle = 'Don\'t worry, your card wasn\'t charged at all. Just take advantage of yatta! features';
+                this.imgFeedback = '/assets/img/success.png';
+
+                return Promise.resolve();
+            }
         }
         
         this.paymentService.getCheckoutUrl(this.isChecked ? environment.priceAnnual : environment.priceMonthly)

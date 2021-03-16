@@ -4,7 +4,7 @@ import { TwitterService } from 'src/app/services/twitter.service';
 import Chart from 'chart.js';
 
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 import {
@@ -49,11 +49,11 @@ export class DashboardComponent implements OnInit {
     private authService: AuthenticationService, 
     private paymentService: PaymentService,
     location: Location,
-    private router: Router) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
     this.location = location;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
   }
 
   ngOnInit() {
@@ -74,7 +74,27 @@ export class DashboardComponent implements OnInit {
 
             this.isDemo = false;
 
-            this.getMine();
+            this.activatedRoute.queryParams.subscribe(params => {
+                let sessionId = params['id'];
+
+                if(url.indexOf('/session') > -1 && sessionId) {
+                    let uid = this.currentUser.uid;
+                    let twitterId = this.profile.id_str;
+                    let screenName = this.profile.screen_name;
+
+                    this.paymentService.updateCustomer(sessionId, uid, twitterId, screenName)
+                        .pipe(first())
+                        .subscribe(result => {
+                            this.currentUser.profile.subscription = result.customer.subscriptionStatus
+
+                            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+
+                            this.router.navigate(['/dash']);
+                        });
+                } else {
+                    this.getMine();
+                }                
+            })
           } else {
             this.isLoaded = true;
           }
