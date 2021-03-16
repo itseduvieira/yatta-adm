@@ -100,6 +100,43 @@ export class SiteComponent implements OnInit, AfterViewInit {
             });
     }
 
+    openModalCheckout(contentCheckout) {
+        of(loadStripe(environment.stripeKey, { locale: 'en' }))
+            .pipe(first())
+            .subscribe(async result => {
+                this.stripe = await result;
+
+                this.modalService.open(contentCheckout, { size: 'lg', backdrop: 'static' });
+
+                this.isChecked = true;
+                this.isLoading = false;
+            });
+    }
+
+    async checkout() {
+        this.isLoading = true;
+
+        let currentUser = await this.authService.loginWithTwitter();
+
+        if (currentUser.profile.subscription &&
+            currentUser.profile.subscription.status === 'active') {
+            this.requestComplete = true;
+            this.title = 'You already have an active subscription'
+            this.subtitle = 'Don\'t worry, your card wasn\'t charged at all. Just take advantage of yatta! features';
+            this.imgFeedback = '/assets/img/success.png';
+
+            return Promise.resolve();
+        }
+        
+        this.paymentService.getCheckoutUrl(this.isChecked ? environment.priceAnnual : environment.priceMonthly)
+            .pipe(first())
+            .subscribe(async result => {
+                await this.stripe.redirectToCheckout({
+                    sessionId: result.sessionId
+                })
+            });
+    }
+
     async checkTwitter() {
         const user = await this.authService.loginWithTwitter();
 
