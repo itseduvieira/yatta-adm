@@ -96,6 +96,11 @@ export class SiteComponent implements OnInit, AfterViewInit {
                 this.card.mount('#card-info');
                 this.card.on('change', event => {
                     this.isComplete = event.complete;
+
+                    if(this.isComplete) {
+                        console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+                    }
                 });
             });
     }
@@ -132,7 +137,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
             }
         }
         
-        this.paymentService.getCheckoutUrl(this.isChecked ? environment.priceAnnual : environment.priceMonthly)
+        this.paymentService.getCheckoutUrl(this.isChecked ? environment.priceAnnual.usd : environment.priceMonthly.usd)
             .pipe(first())
             .subscribe(async result => {
                 await this.stripe.redirectToCheckout({
@@ -154,16 +159,20 @@ export class SiteComponent implements OnInit, AfterViewInit {
     async subscribe() {
         this.isLoading = true;
 
-        let currentUser = await this.authService.loginWithTwitter();
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        if (currentUser.profile.subscription &&
-            currentUser.profile.subscription.status === 'active') {
-            this.requestComplete = true;
-            this.title = 'You already have an active subscription'
-            this.subtitle = 'Don\'t worry, your card wasn\'t charged at all. Just take advantage of yatta! features';
-            this.imgFeedback = '/assets/img/success.png';
+        if(!currentUser) {
+            currentUser = await this.authService.loginWithTwitter();
 
-            return Promise.resolve();
+            if (currentUser.profile.subscription &&
+                currentUser.profile.subscription.status === 'active') {
+                this.requestComplete = true;
+                this.title = 'You already have an active subscription'
+                this.subtitle = 'Don\'t worry, your card wasn\'t charged at all. Just take advantage of yatta! features';
+                this.imgFeedback = '/assets/img/success.png';
+
+                return Promise.resolve();
+            }
         }
 
         await this.createSubscription();
@@ -197,6 +206,10 @@ export class SiteComponent implements OnInit, AfterViewInit {
             },
         });
 
+        const billing = this.isChecked ? environment.priceAnnual : environment.priceMonthly;
+
+        const priceId = result.paymentMethod.card.country === 'BR' ? billing.brl : billing.usd;
+
         if (result.error) {
             this.requestComplete = true;
             this.title = 'We have an issue processing your payment'
@@ -205,15 +218,20 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
         } else {
             this.paymentService.createSubscription({
-                customerId: currentUser.profile.subscription.customerId,
                 paymentMethodId: result.paymentMethod.id,
-                priceId: this.isChecked ? environment.priceAnnual : environment.priceMonthly,
+                priceId: priceId
             })
                 .pipe(first())
                 .pipe(catchError(error => {
                     return throwError(error);
                 }))
                 .subscribe(async result => {
+                    currentUser.profile.subscription = {
+                        customerId: result.customer,
+                        status: result.status
+                    };
+
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
                     const lastPaymentIntent = result.latest_invoice.payment_intent;
 
@@ -249,12 +267,15 @@ export class SiteComponent implements OnInit, AfterViewInit {
                         this.requestComplete = true;
                     }
                 }, result => {
-                    let message
+                    let message = 'A generic error has ocurred'
 
-                    if(result.error.code && result.error.code === 'card_declined') {
-                        message = result.error.raw.message
-                    } else {
+                    // if(result.error.code && result.error.code === 'card_declined') {
+                    if(result.error && result.error.error) {
                         message = result.error.error.message
+                    } else if(result.error && result.error.raw) {
+                        message = result.error.raw.message
+                    } else if(result.error && result.error.message) {
+                        message = result.error.message
                     }
 
                     this.title = `We have an issue processing your payment: ${message}`;

@@ -6,7 +6,7 @@
         <div>
 
             <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;"
-                (click)="openModalCheckout(contentCheckout)" #pricing>Pricing</a>
+                (click)="openModal(content)" #pricing>Pricing</a>
             <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" style="cursor: pointer; font-size: 0.7em;"
                 [routerLink]="['/dash/demo']">Live demo</a>
             <a class="h4 ml-4 mr-4 mb-0 text-white text-uppercase ls-1" href="#about"
@@ -407,7 +407,7 @@
 </ng-template>
 
 <ng-template #contentCheckout let-c="close" let-d="dismiss">
-    <div class="modal-content" style="min-height: 608.8px;">
+    <div class="modal-content">
         <div class="modal-header">
             <button type="button" style="z-index: 1000;" class="close" data-dismiss="modal" aria-label="Close"
                 (click)="c('Close click')" [routerLink]="['/']">

@@ -11,6 +11,12 @@ export const environment = {
         measurementId: "G-RN8RFEF5MY"
     },
     stripeKey: 'pk_test_0mG0iApRlgQsZiYoV6x36Jq100yXbImTIw',
-    priceMonthly: 'price_1IT7UEC4t66flnypdqhr535Q',
-    priceAnnual: 'price_1IT7V5C4t66flnyp48ILSnSp'
+    priceMonthly: {
+        usd: 'price_1IT7UEC4t66flnypdqhr535Q', // 3
+        brl: 'price_1IW6k2C4t66flnypGAAdyGi3'  // 7.5
+    },
+    priceAnnual: {
+        usd: 'price_1IT7V5C4t66flnyp48ILSnSp', // 24
+        brl: 'price_1IW6arC4t66flnyp2BvEaCJu'  // 60
+    }
 };

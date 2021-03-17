@@ -74,27 +74,7 @@ export class DashboardComponent implements OnInit {
 
             this.isDemo = false;
 
-            this.activatedRoute.queryParams.subscribe(params => {
-                let sessionId = params['id'];
-
-                if(url.indexOf('/session') > -1 && sessionId) {
-                    let uid = this.currentUser.uid;
-                    let twitterId = this.profile.id_str;
-                    let screenName = this.profile.screen_name;
-
-                    this.paymentService.updateCustomer(sessionId, uid, twitterId, screenName)
-                        .pipe(first())
-                        .subscribe(result => {
-                            this.currentUser.profile.subscription = result.customer.subscriptionStatus
-
-                            localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-
-                            this.router.navigate(['/dash']);
-                        });
-                } else {
-                    this.getMine();
-                }                
-            })
+            this.getMine();
           } else {
             this.isLoaded = true;
           }
@@ -112,7 +92,9 @@ export class DashboardComponent implements OnInit {
         this.rts = tweets.rts;
         this.favs = tweets.favs;
         
-        this.tweetCountTotal = Math.trunc(this.currentUser.profile.statuses_count / tweets.count * 100);
+        this.tweetCountTotal = Math.trunc((tweets.count / this.currentUser.profile.statuses_count) * 100);
+
+        this.tweetCountTotal = this.tweetCountTotal > 100 ? 100 : this.tweetCountTotal;
 
         const start = moment.tz(tweets.period.start, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');
         const end = moment.tz(tweets.period.end, 'ddd MMM DD HH:mm:ss ZZ YYYY', 'UTC');

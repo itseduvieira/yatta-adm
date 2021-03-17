@@ -35,6 +35,7 @@ export class PaymentService {
         headers : new HttpHeaders({
           'X-Access-Token': user.accessToken,
           'X-Access-Token-Secret': user.accessTokenSecret,
+          'X-Auth-Uid': user.uid,
           'Authorization': `Bearer ${user.token}`
         })
       };
