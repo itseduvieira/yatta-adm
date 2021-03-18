@@ -23,6 +23,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
     isComplete: boolean;
     isLoading: boolean;
     requestComplete: boolean;
+    coupon
 
     title = 'Your payment transaction succeeded, you are good to go';
     subtitle = 'Take full advantage of yatta! right away';
@@ -41,14 +42,24 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit(): void {
-        const url = this.router.url;
-        if (url.indexOf('/payment') > -1) {
-            this.pricing.nativeElement.click();
-        }
+        of(loadStripe(environment.stripeKey, { locale: 'en' }))
+            .pipe(first())
+            .subscribe(async result => {
+                this.stripe = await result;
+
+                const url = this.router.url;
+                if (url.indexOf('/payment') > -1) {
+                    this.pricing.nativeElement.click();
+                }
+            });
     }
 
     ngOnInit() {
-
+        of(loadStripe(environment.stripeKey, { locale: 'en' }))
+            .pipe(first())
+            .subscribe(async result => {
+                this.stripe = await result;
+            });
     }
 
     tryAgain() {
@@ -60,49 +71,38 @@ export class SiteComponent implements OnInit, AfterViewInit {
     }
 
     openModal(content) {
-        of(loadStripe(environment.stripeKey, { locale: 'en' }))
-            .pipe(first())
-            .subscribe(async result => {
-                this.stripe = await result;
+        this.modalService.open(content, { size: 'lg', backdrop: 'static' });
 
-                this.modalService.open(content, { size: 'lg', backdrop: 'static' });
+        this.isChecked = true;
+        this.isLoading = false;
+        this.isComplete = false;
+        this.requestComplete = false;
 
-                this.isChecked = true;
-                this.isLoading = false;
-                this.isComplete = false;
-                this.requestComplete = false;
-
-                var elements = this.stripe.elements();
-                this.card = elements.create('card', {
-                    hidePostalCode: true,
-                    style: {
-                        base: {
-                            color: "#525f7f",
-                            fontFamily: 'Open Sans, sans-serif',
-                            fontSmoothing: "antialiased",
-                            fontSize: "1em",
-                            "::placeholder": {
-                                color: "#525f7f"
-                            }
-                        },
-                        invalid: {
-                            fontFamily: 'Open Sans, sans-serif',
-                            color: "#fa755a",
-                            iconColor: "#fa755a"
-                        }
+        var elements = this.stripe.elements();
+        this.card = elements.create('card', {
+            hidePostalCode: true,
+            style: {
+                base: {
+                    color: "#525f7f",
+                    fontFamily: 'Open Sans, sans-serif',
+                    fontSmoothing: "antialiased",
+                    fontSize: "1em",
+                    "::placeholder": {
+                        color: "#525f7f"
                     }
-                });
+                },
+                invalid: {
+                    fontFamily: 'Open Sans, sans-serif',
+                    color: "#fa755a",
+                    iconColor: "#fa755a"
+                }
+            }
+        });
 
-                this.card.mount('#card-info');
-                this.card.on('change', event => {
-                    this.isComplete = event.complete;
-
-                    if(this.isComplete) {
-                        console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
-
-                    }
-                });
-            });
+        this.card.mount('#card-info');
+        this.card.on('change', event => {
+            this.isComplete = event.complete;
+        });
     }
 
     openModalCheckout(contentCheckout) {
@@ -148,6 +148,20 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
     async checkTwitter() {
         const user = await this.authService.loginWithTwitter();
+
+        const url = this.router.url;
+
+        if (url.indexOf('/coupon') > -1) {
+            const coupon = url.split('/').length > 2 ? url.split('/')[2] : null;
+
+            if(coupon) {
+                this.coupon = coupon;
+
+                await this.subscribe();
+
+                return;
+            }
+        }
 
         if (user.profile.subscription.status === 'active') {
             this.router.navigate(['/dash']);
@@ -198,29 +212,44 @@ export class SiteComponent implements OnInit, AfterViewInit {
     async createSubscription() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        const result = await this.stripe.createPaymentMethod({
-            type: 'card',
-            card: this.card,
-            billing_details: {
-                name: currentUser.profile.screen_name,
-            },
-        });
+        if(this.coupon) {
+            const priceId = environment.priceMonthly.usd;
 
-        const billing = this.isChecked ? environment.priceAnnual : environment.priceMonthly;
-
-        const priceId = result.paymentMethod.card.country === 'BR' ? billing.brl : billing.usd;
-
-        if (result.error) {
-            this.requestComplete = true;
-            this.title = 'We have an issue processing your payment'
-            this.subtitle = 'Please check if your card is valid, if it has enough funds or if it can be charged in US$';
-            this.imgFeedback = '/assets/img/fail.png';
+            this.paymentService.createSubscription({
+                priceId: priceId,
+                couponId: this.coupon
+            })
+            .pipe(first())
+            .subscribe(async result => {
+                this.router.navigate(['/dash']);
+            }, result => {
+                this.router.navigate(['/payment']);
+            });
 
         } else {
-            this.paymentService.createSubscription({
-                paymentMethodId: result.paymentMethod.id,
-                priceId: priceId
-            })
+            const result = await this.stripe.createPaymentMethod({
+                type: 'card',
+                card: this.card,
+                billing_details: {
+                    name: currentUser.profile.screen_name,
+                },
+            });
+
+            const billing = this.isChecked ? environment.priceAnnual : environment.priceMonthly;
+
+            const priceId = result.paymentMethod.card.country === 'BR' ? billing.brl : billing.usd;
+
+            if (result.error) {
+                this.requestComplete = true;
+                this.title = 'We have an issue processing your payment'
+                this.subtitle = 'Please check if your card is valid, if it has enough funds or if it can be charged in US$';
+                this.imgFeedback = '/assets/img/fail.png';
+
+            } else {
+                this.paymentService.createSubscription({
+                    paymentMethodId: result.paymentMethod.id,
+                    priceId: priceId
+                })
                 .pipe(first())
                 .pipe(catchError(error => {
                     return throwError(error);
@@ -284,6 +313,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
                     this.requestComplete = true;
                 })
+            }
         }
     }
 }

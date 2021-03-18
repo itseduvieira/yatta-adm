@@ -29,6 +29,16 @@ const routes: Routes =[
     ],
   },
   {
+    path: 'coupon/:coupon',
+    component: SiteLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/site-layout/site-layout.module#SiteLayoutModule'
+      },
+    ],
+  },
+  {
     path: 'dash',
     component: AdminLayoutComponent,
     children: [
