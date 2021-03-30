@@ -23,7 +23,8 @@ export class SiteComponent implements OnInit, AfterViewInit {
     isComplete: boolean;
     isLoading: boolean;
     requestComplete: boolean;
-    coupon
+    coupon;
+    priceMonthly;
 
     title = 'Your payment transaction succeeded, you are good to go';
     subtitle = 'Take full advantage of yatta! right away';
@@ -42,6 +43,8 @@ export class SiteComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit(): void {
+        this.priceMonthly = 3;
+
         of(loadStripe(environment.stripeKey, { locale: 'en' }))
             .pipe(first())
             .subscribe(async result => {
@@ -50,20 +53,34 @@ export class SiteComponent implements OnInit, AfterViewInit {
                 const url = this.router.url;
                 if (url.indexOf('/payment') > -1) {
                     this.pricing.nativeElement.click();
+                } else if (url.indexOf('/coupon') > -1) {
+                    const couponId = url.split('/').length > 2 ? url.split('/')[2] : null;
+
+                    if(couponId) {
+                        this.paymentService.getCoupon(couponId)
+                            .pipe(first())
+                            .subscribe(result => {
+                                this.coupon = result.coupon;
+
+                                this.priceMonthly *= Number((1-(this.coupon.percent_off/100)));
+                            }, result => {
+                                this.router.navigate(['/']);
+                            });
+                    }
                 }
             });
     }
 
     ngOnInit() {
-        of(loadStripe(environment.stripeKey, { locale: 'en' }))
-            .pipe(first())
-            .subscribe(async result => {
-                this.stripe = await result;
-            });
+        // of(loadStripe(environment.stripeKey, { locale: 'en' }))
+        //     .pipe(first())
+        //     .subscribe(async result => {
+        //         this.stripe = await result;
+        //     });
     }
 
     tryAgain() {
-        this.isChecked = true;
+        this.isChecked = !this.coupon;
         this.isLoading = false;
         this.isComplete = false;
         this.requestComplete = false;
@@ -73,7 +90,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
     openModal(content) {
         this.modalService.open(content, { size: 'lg', backdrop: 'static' });
 
-        this.isChecked = true;
+        this.isChecked = !this.coupon;
         this.isLoading = false;
         this.isComplete = false;
         this.requestComplete = false;
@@ -149,18 +166,24 @@ export class SiteComponent implements OnInit, AfterViewInit {
     async checkTwitter() {
         const user = await this.authService.loginWithTwitter();
 
-        const url = this.router.url;
+        // const url = this.router.url;
 
-        if (url.indexOf('/coupon') > -1) {
-            const coupon = url.split('/').length > 2 ? url.split('/')[2] : null;
+        // if (url.indexOf('/coupon') > -1) {
+        //     const coupon = url.split('/').length > 2 ? url.split('/')[2] : null;
 
-            if(coupon) {
-                this.coupon = coupon;
+        //     if(coupon) {
+        //         this.coupon = coupon;
 
-                await this.subscribe();
+        //         await this.subscribe();
 
-                return;
-            }
+        //         return;
+        //     }
+        // }
+
+        if(this.coupon && this.coupon.percent_off && this.coupon.percent_off === 100.0) {
+            await this.subscribe();
+
+            return;
         }
 
         if (user.profile.subscription.status === 'active') {
@@ -212,12 +235,12 @@ export class SiteComponent implements OnInit, AfterViewInit {
     async createSubscription() {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        if(this.coupon) {
+        if(this.coupon && this.coupon.percent_off && this.coupon.percent_off === 100.0) {
             const priceId = environment.priceMonthly.usd;
 
             this.paymentService.createSubscription({
                 priceId: priceId,
-                couponId: this.coupon
+                couponId: this.coupon.id
             })
             .pipe(first())
             .subscribe(async result => {
@@ -246,10 +269,16 @@ export class SiteComponent implements OnInit, AfterViewInit {
                 this.imgFeedback = '/assets/img/fail.png';
 
             } else {
-                this.paymentService.createSubscription({
+                const subData = {
                     paymentMethodId: result.paymentMethod.id,
                     priceId: priceId
-                })
+                }
+
+                if(this.coupon) {
+                    subData['couponId'] = this.coupon.id;
+                }
+
+                this.paymentService.createSubscription(subData)
                 .pipe(first())
                 .pipe(catchError(error => {
                     return throwError(error);
@@ -315,5 +344,9 @@ export class SiteComponent implements OnInit, AfterViewInit {
                 })
             }
         }
+    }
+
+    toFixedIfNecessary(value){
+        return +parseFloat(value).toFixed(2);
     }
 }
