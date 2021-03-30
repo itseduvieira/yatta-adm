@@ -63,6 +63,8 @@ export class SiteComponent implements OnInit, AfterViewInit {
                                 this.coupon = result.coupon;
 
                                 this.priceMonthly *= Number((1-(this.coupon.percent_off/100)));
+
+                                this.pricing.nativeElement.click();
                             }, result => {
                                 this.router.navigate(['/']);
                             });
