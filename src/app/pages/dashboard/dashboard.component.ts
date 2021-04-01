@@ -196,7 +196,7 @@ export class DashboardComponent implements OnInit {
       profile: {
         name: 'Jonas Marra',
         screen_name: 'marrajonas_',
-        profile_image_url: '//bit.ly/3dPV66u',
+        profile_image_url: '/assets/img/demo.jpg',
         statuses_count: 50
       },
       accessToken: 'demo',
