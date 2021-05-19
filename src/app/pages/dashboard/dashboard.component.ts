@@ -83,6 +83,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getMine() {
+    this.twitterService.getFollowers()
+      .pipe(first())
+      .subscribe(followers => {
+          console.log(followers);
+      });
+      
     this.twitterService.getMine()
       .pipe(first())
       .subscribe(tweets => {

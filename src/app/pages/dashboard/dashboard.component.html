@@ -1,210 +1,335 @@
-<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" style="padding-left: 0;padding-right: 0;" id="sidenav-main">
-  <div class="container-fluid" style="min-height: 56px;">
-    
-    <div class="row" style="width: 100%;">
-      <div class="col-xl m-3">
-        <a class="h4 text-uppercase" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
-      </div>
-    </div>
-    <div *ngIf="!isLogged && isLoaded" class="row">
-      <div class="col-xl m-2">
-        <button type="button" class="btn btn-primary d-lg-inline-block text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginTT()">Login with Twitter</button>
-      </div>
-      <div class="col-xl mt-1">
-        <a class="h4 ml-4 mr-4 mb-0 text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginDemo()">Demo account</a>
-      </div>
-    </div>
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" style="padding-left: 0;padding-right: 0;"
+    id="sidenav-main">
+    <div class="container-fluid" style="min-height: 56px;">
 
-    <div *ngIf="isLogged" class="row" style="width: 100%;">
-      <div class="col-xl">
-        <ul class="navbar-nav ml-1" style="cursor: pointer;">
-          <li class="nav-item" ngbDropdown placement="bottom-right">
-            <a class="nav-link pr-0" role="button" ngbDropdownToggle>
-              <div class="media align-items-center">
-                <span class="avatar avatar-md rounded-circle">
-                  <img alt="{{ profile.name }}" src="{{ profile.profile_image_url.replace('http:', '') }}">
-                </span>
-                <div class="media-body ml-2">
-                  <span class="mb-0 text-sm font-weight-bold">{{ profile.name }}</span>
-                  <span class="mb-0">
-                    <p class="text-sm mb-0">@{{ profile.screen_name }}</p>
-                  </span>
-                </div>
-              </div>
-            </a>
-            <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
-              <a (click)="logout()" class="dropdown-item">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-              </a>
+        <div class="row" style="width: 100%;">
+            <div class="col-xl m-3">
+                <a class="h4 text-uppercase" routerLinkActive="active" [routerLink]="['/dashboard']">{{getTitle()}}</a>
             </div>
-          </li>
-        </ul>
-      </div>
+        </div>
+        <div *ngIf="!isLogged && isLoaded" class="row">
+            <div class="col-xl m-2">
+                <button type="button" class="btn btn-primary d-lg-inline-block text-uppercase ls-1"
+                    style="font-size: 0.7em;" (click)="loginTT()">Login with Twitter</button>
+            </div>
+            <div class="col-xl mt-1">
+                <a class="h4 ml-4 mr-4 mb-0 text-uppercase ls-1" style="font-size: 0.7em;" (click)="loginDemo()">Demo
+                    account</a>
+            </div>
+        </div>
+
+        <div *ngIf="isLogged" class="row" style="width: 100%;">
+            <div class="col-xl">
+                <ul class="navbar-nav ml-1" style="cursor: pointer;">
+                    <li class="nav-item" ngbDropdown placement="bottom-right">
+                        <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+                            <div class="media align-items-center">
+                                <span class="avatar avatar-md rounded-circle">
+                                    <img alt="{{ profile.name }}"
+                                        src="{{ profile.profile_image_url.replace('http:', '') }}">
+                                </span>
+                                <div class="media-body ml-2">
+                                    <span class="mb-0 text-sm font-weight-bold">{{ profile.name }}</span>
+                                    <span class="mb-0">
+                                        <p class="text-sm mb-0">@{{ profile.screen_name }}</p>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
+                            <a (click)="logout()" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
-  <div class="container-fluid" style="min-height: 56px;">
-    <span class="h4 mb-0 text-white d-none d-lg-inline-block" style="font-size: 1em;">⏰ yatta! dashboard</span>
-    
-    <div *ngIf="!isLogged && isLoaded">
-      <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1" style="cursor: pointer; font-size: 0.8em;" [routerLink]="['/dash/demo']">Live demo</a>
-      <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1" style="font-size: 0.8em;color:#4150a5;" (click)="loginTT()">⏰ Find your best time right now</button>
-    </div>
-    <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">
-      <li class="nav-item" ngbDropdown placement="bottom-right">
-        <a class="nav-link pr-0" role="button" ngbDropdownToggle>
-          <div class="media align-items-center">
-            <span class="avatar avatar-md rounded-circle">
-              <img alt="{{ profile.name }}" src="{{ profile.profile_image_url.replace('http:', '') }}">
-            </span>
-            <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold">{{ profile.name }}</span>
-              <span class="mb-0">
-                <p class="text-sm mb-0">@{{ profile.screen_name }}</p>
-              </span>
-            </div>
-          </div>
-        </a>
-        <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
-          <a *ngIf="profile.subscription" style="cursor: pointer; color: #5e72e4;" (click)="customerPortal()" class="dropdown-item">
-            <i class="fas fa-address-card"></i>
-            <span>My subscription</span>
-          </a>
-          <a target="_blank" style="color: #5e72e4;" href="https://twitter.com/messages/compose?recipient_id=72183014&text=Help%20me,%20please!" class="dropdown-item">
-            <i class="fab fa-twitter"></i>
-            <span>Support</span>
-          </a>
-          <a (click)="logout()" class="dropdown-item" style="color: #5e72e4;">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-          </a>
+    <div class="container-fluid" style="min-height: 56px;">
+        <span class="h4 mb-0 text-white d-none d-lg-inline-block" style="font-size: 1em;">⏰ yatta! dashboard</span>
+
+        <div *ngIf="!isLogged && isLoaded">
+            <a class="h4 ml-4 mr-4 mb-0 text-white d-none d-lg-inline-block text-uppercase ls-1"
+                style="cursor: pointer; font-size: 0.8em;" [routerLink]="['/dash/demo']">Live demo</a>
+            <button type="button" class="btn btn-secondary d-none d-lg-inline-block text-uppercase ls-1"
+                style="font-size: 0.8em;color:#4150a5;" (click)="loginTT()">⏰ Find your best time right now</button>
         </div>
-      </li>
-    </ul>
-  </div>
+        <ul *ngIf="isLogged" class="navbar-nav align-items-center d-none d-md-flex" style="cursor: pointer;">
+            <li class="nav-item" ngbDropdown placement="bottom-right">
+                <a class="nav-link pr-0" role="button" ngbDropdownToggle>
+                    <div class="media align-items-center">
+                        <span class="avatar avatar-md rounded-circle">
+                            <img alt="{{ profile.name }}" src="{{ profile.profile_image_url.replace('http:', '') }}">
+                        </span>
+                        <div class="media-body ml-2 d-none d-lg-block">
+                            <span class="mb-0 text-sm font-weight-bold">{{ profile.name }}</span>
+                            <span class="mb-0">
+                                <p class="text-sm mb-0">@{{ profile.screen_name }}</p>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <div class="dropdown-menu-arrow dropdown-menu-right dropdown-menu" ngbDropdownMenu>
+                    <a *ngIf="profile.subscription" style="cursor: pointer; color: #5e72e4;" (click)="customerPortal()"
+                        class="dropdown-item">
+                        <i class="fas fa-address-card"></i>
+                        <span>My subscription</span>
+                    </a>
+                    <a target="_blank" style="color: #5e72e4;"
+                        href="https://twitter.com/messages/compose?recipient_id=72183014&text=Help%20me,%20please!"
+                        class="dropdown-item">
+                        <i class="fab fa-twitter"></i>
+                        <span>Support</span>
+                    </a>
+                    <a (click)="logout()" class="dropdown-item" style="color: #5e72e4;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 <div class="header bg-gradient-blue pb-8 pt-5 pt-md-7">
-  <div class="container-fluid">
-    <div class="header-body">
-      <div class="row">
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Best time to tweet</h5>
-                  <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ bestTime }}</span>
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row">
+                <div class="col-xl col-lg-4">
+                    <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Best time to tweet</h5>
+                                    <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ bestTime
+                                        }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2"><i class="fas fa-bell"></i> {{ timeInteractions }}
+                                    interactions</span>
+                                <span class="text-nowrap">at this time</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-success text-white rounded-circle shadow">
-                    <i class="fas fa-clock"></i>
-                  </div>
+                <div class="col-xl col-lg-4">
+                    <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Tweet count</h5>
+                                    <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ tweetCount
+                                        }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
+                                        <i class="fab fa-twitter"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2"><i class="fab fa-twitter"></i> {{ tweetCountTotal
+                                    }}%</span>
+                                <span class="text-nowrap"> of your total tweets</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fas fa-bell"></i> {{ timeInteractions }} interactions</span>
-                <span class="text-nowrap">at this time</span>
-              </p>
+                <div class="col-xl col-lg-4">
+                    <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Rts + Likes</h5>
+                                    <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ interactions
+                                        }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2"><i class="fas fa-retweet"></i> {{ rts }}</span>
+                                <span class="text-nowrap">RTs</span>&nbsp;&nbsp;
+                                <span class="text-success mr-2"> <i class="fas fa-heart"></i> {{ favs }}</span>
+                                <span class="text-nowrap">likes</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl col-lg-4">
+                    <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Date range</h5>
+                                    <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ term }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
+                                <span class="text-success mr-2"><i class="fas fa-calendar"></i> {{ days }}</span>
+                                <span class="text-nowrap">days summary</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Tweet count</h5>
-                  <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ tweetCount }}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
-                    <i class="fab fa-twitter"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fab fa-twitter"></i> {{ tweetCountTotal }}%</span>
-                <span class="text-nowrap"> of your total tweets</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Rts + Likes</h5>
-                  <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ interactions }}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                    <i class="fas fa-heart"></i>
-                  </div>
-                </div>
-              </div>
-              <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fas fa-retweet"></i> {{ rts }}</span>
-                <span class="text-nowrap">RTs</span>&nbsp;&nbsp;
-                <span class="text-success mr-2"> <i class="fas fa-heart"></i>  {{ favs }}</span>
-                <span class="text-nowrap">likes</span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl col-lg-4">
-          <div class="card card-stats mb-4 mb-xl-0" style="min-height: 122px;">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Date range</h5>
-                  <span class="h2 font-weight-bold mb-0" style="font-size: 1rem;">{{ term }}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                    <i class="fas fa-calendar-alt"></i>
-                  </div>
-                </div>
-              </div>
-              <p *ngIf="isLogged" class="mt-3 mb-0 text-muted text-sm">
-                <span class="text-success mr-2"><i class="fas fa-calendar"></i> {{ days }}</span>
-                <span class="text-nowrap">days summary</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  <div class="row">
-    <div class="col">
-      <div class="card shadow" style="min-height: 420px;">
-        <div class="card-header border-0" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
-          <div class="row align-items-center">
-            <div class="col">
-              <h6 class="text-uppercase text-light ls-1 mb-1">Interactions by hour</h6>
-              <h2 class="mb-0">What time should I tweet?</h2>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow" style="min-height: 420px;">
+                <div class="card-header border-0" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-light ls-1 mb-1">Interactions by hour</h6>
+                            <h2 class="mb-0">What time should I tweet?</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="min-height: 18.6rem;">
+                    <div class="chart pl-1 pr-1 pb-1">
+                        <canvas id="chart-activity" class="chart-canvas"></canvas>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-    
-        <div class="card-body"  style="min-height: 18.6rem;">
-          <div class="chart pl-1 pr-1 pb-1">
-            <canvas id="chart-activity" class="chart-canvas"></canvas>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+
+    <div class="row mt-5 pb-5">
+        <div class="col-lg-7">
+            <div class="card shadow" style="min-height: 420px;">
+                <div class="card-header border-0" style="padding: 1.25rem 1.85rem 0.25rem 1.85rem">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-light ls-1 mb-1">My online audience</h6>
+                            <h2 class="mb-0">Who is online right now?</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="min-height: 18.6rem;">
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Twitted at</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="assets/img/theme/bootstrap.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">Argon Design System</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        $2,500 USD
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <i class="bg-warning"></i> pending
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="assets/img/theme/angular.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">Angular Now UI Kit PRO</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        $1,800 USD
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot">
+                                            <i class="bg-success"></i> completed
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="assets/img/theme/react.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">React Material Dashboard</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        $4,400 USD
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot">
+                                            <i class="bg-info"></i> on schedule
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <a href="#" class="avatar rounded-circle mr-3">
+                                                <img alt="Image placeholder" src="assets/img/theme/vue.jpg">
+                                            </a>
+                                            <div class="media-body">
+                                                <span class="mb-0 text-sm">Vue Paper UI Kit PRO</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        $2,200 USD
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            <i class="bg-success"></i> completed
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div *ngIf="isLogged && isDemo" class="stripe-demo">
-  <span class="text-stripe-demo ls-1">DEMO ACCOUNT</span>
+    <span class="text-stripe-demo ls-1">DEMO ACCOUNT</span>
 </div>
