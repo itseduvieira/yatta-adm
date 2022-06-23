@@ -22,7 +22,7 @@ export class TwitterService {
           'X-Auth-Uid': user.uid,
           'Authorization': `Bearer ${user.token}`
         }),
-        params: new HttpParams().set("offset", new Date().getTimezoneOffset().toString())
+        params: new HttpParams().set('offset', new Date().getTimezoneOffset().toString())
       };
     }
 
@@ -40,7 +40,7 @@ export class TwitterService {
           'X-Auth-Uid': user.uid,
           'Authorization': `Bearer ${user.token}`
         }),
-        params: new HttpParams().set("offset", new Date().getTimezoneOffset().toString())
+        params: new HttpParams().set('offset', new Date().getTimezoneOffset().toString())
       };
     }
 

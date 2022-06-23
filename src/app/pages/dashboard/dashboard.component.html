@@ -241,84 +241,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let follower of followers" [attr.id]="follower.user">
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="assets/img/theme/bootstrap.jpg">
+                                                <img alt="Avatar" [src]="follower.avatar">
                                             </a>
                                             <div class="media-body">
-                                                <span class="mb-0 text-sm">Argon Design System</span>
+                                                <span class="mb-0 text-sm"><a href="https://twitter.com/{{ follower.user }}" target="_blank">@{{ follower.user }}</a></span>
                                             </div>
                                         </div>
                                     </th>
-                                    <td>
-                                        $2,500 USD
-                                    </td>
                                     <td>
                                         <span class="badge badge-dot mr-4">
-                                            <i class="bg-warning"></i> pending
+                                            <i class="bg-success"></i> online
                                         </span>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="media align-items-center">
-                                            <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="assets/img/theme/angular.jpg">
-                                            </a>
-                                            <div class="media-body">
-                                                <span class="mb-0 text-sm">Angular Now UI Kit PRO</span>
-                                            </div>
-                                        </div>
-                                    </th>
                                     <td>
-                                        $1,800 USD
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-dot">
-                                            <i class="bg-success"></i> completed
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="media align-items-center">
-                                            <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="assets/img/theme/react.jpg">
-                                            </a>
-                                            <div class="media-body">
-                                                <span class="mb-0 text-sm">React Material Dashboard</span>
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td>
-                                        $4,400 USD
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-dot">
-                                            <i class="bg-info"></i> on schedule
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="media align-items-center">
-                                            <a href="#" class="avatar rounded-circle mr-3">
-                                                <img alt="Image placeholder" src="assets/img/theme/vue.jpg">
-                                            </a>
-                                            <div class="media-body">
-                                                <span class="mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td>
-                                        $2,200 USD
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-dot mr-4">
-                                            <i class="bg-success"></i> completed
-                                        </span>
+                                        {{ follower.created }}
                                     </td>
                                 </tr>
                             </tbody>
