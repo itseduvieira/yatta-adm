@@ -74,11 +74,7 @@ export class SiteComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        // of(loadStripe(environment.stripeKey, { locale: 'en' }))
-        //     .pipe(first())
-        //     .subscribe(async result => {
-        //         this.stripe = await result;
-        //     });
+        
     }
 
     tryAgain() {

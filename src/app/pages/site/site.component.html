@@ -25,8 +25,7 @@
                 <div class="col align-items-center p-sm-3" style="text-align: center;">
                     <h1 class="text-white display-1" style="font-weight: 800;">What's your best time to tweet?</h1>
                     <h1 class="text-white ml-5 mr-5" style="font-size: 1.2em; font-weight: 200;">yatta helps you to
-                        become aware
-                        of your audience's habits on Twitter</h1>
+                        become aware of your audience's habits on Twitter</h1>
                 </div>
 
             </div>
@@ -55,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="card-body" style="min-height: 18.6rem;">
+                <div class="card-body" style="min-height: 18.6rem; text-align: center;">
                     <img class="img-fluid" src="/assets/img/mockup.png" />
                 </div>
 
@@ -238,7 +237,7 @@
                             <div class="col-12 mt--3 pb-5" style="text-align: center;">
                                 <span *ngIf="!coupon || (coupon && isChecked)" style="font-size: small;">Pay {{ isChecked ? '$24 annually (30% off)' : '$3
                                     monthly ($36/year)' }} <a *ngIf="!isChecked && !coupon" (click)="isChecked=true"
-                                        style="color: #5e72e4; cursor: pointer;">Save 30%</a><br>Cancel
+                                        style="color: #5e72e4; cursor: pointer;">Want to save 30%?</a><br>Cancel
                                     anytime</span>
 
                                 <span *ngIf="coupon && !isChecked" style="font-size: small;">Coupon applied! {{ coupon.name }}<br>Cancel
@@ -358,11 +357,11 @@
                                     <div class="spinner" *ngIf="isLoading" id="spinner"></div>
                                     <span style="font-size: 1em;" *ngIf="!isLoading">Join yatta! — {{ isChecked ?
                                         '$24/year' : '$' + toFixedIfNecessary(priceMonthly) + '/month' }}</span><br *ngIf="!isLoading">
-                                    <span class="mt--3" style="font-size: 0.15em;" *ngIf="!isLoading">Premium
+                                    <span class="mt--3" style="font-size: 0.68em;" *ngIf="!isLoading">Premium
                                         subscription</span>
                                 </button>
                                 <span style="font-size: x-small;">Payments are securely processed via <a
-                                        href="https://stripe.com">Stripe</a> 🔐</span>
+                                        href="https://stripe.com" target="_blank">Stripe</a> 🔐</span>
                             </div>
                         </div>
                     </div>
@@ -408,133 +407,3 @@
         </div>
     </div>
 </ng-template>
-
-<!-- <ng-template #contentCheckout let-c="close" let-d="dismiss">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" style="z-index: 1000;" class="close" data-dismiss="modal" aria-label="Close"
-                (click)="c('Close click')" [routerLink]="['/']">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body mt--5 pt-5 pb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-md-6 pl-1 pr-1">
-                        <div class="row">
-                            <div class="col" style="text-align: center;">
-                                <h6 class="text-uppercase text-light ls-1 mb-1">yatta! analytics</h6>
-                                <h2 class="h2 mb-2">Does your audience stay up all night?</h2>
-                                <h2 class="h4" style="color: #999;">⏰ Find it out with yatta!</h2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card card-stats mt-4 ml-5 mr-5 mb-xl-0" style="min-height: 122px;">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h5 class="card-title text-uppercase text-muted mb-0">Best time to Tweet
-                                                </h5>
-                                                <span class="h2 font-weight-bold mb-0" style="font-size: 1.2rem;">Every
-                                                    1AM</span>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div
-                                                    class="icon icon-shape bg-success text-white rounded-circle shadow">
-                                                    <i class="fas fa-clock"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="mt-3 mb-0 text-muted text-sm">
-                                            <span class="text-success mr-2"><i class="fas fa-bell"></i> 1390
-                                                interactions</span>
-                                            <span class="text-nowrap">at this time</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col pt-4 pl-5 pr-5">
-                                <h4>🛠 yatta! is a lightweight tool</h4>
-                                <p style="font-size: .9em;">
-                                    Meaning we don't store any data, nor send any emails
-                                </p>
-                                <h4>✨ It's easy and simple</h4>
-                                <p style="font-size: .9em;">
-                                    Just sign in with your Twitter account, and you're good to go
-                                </p>
-                                <h4>🚫 Cancel anytime</h4>
-                                <p style="font-size: .9em;">
-                                    No strings attached, cancel your subscription anytime you want
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-md-6">
-                        <div class="row">
-                            <div class="col" style="text-align: center;">
-                                <h6 class="text-uppercase ls-1 mb-4" style="color: #525f7f;">Choose your subscription
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4" style="text-align: right;">
-                                <h6 (click)="isChecked=false" class="text-uppercase ls-1"
-                                    [ngClass]="{'text-light': isChecked, 'text-blue': !isChecked}"
-                                    style="cursor: pointer;">Pay monthly</h6>
-                            </div>
-                            <div class="col-4" style="text-align: center;">
-                                <div class="form-group">
-                                    <label class="custom-toggle">
-                                        <input type="checkbox" checked="true" [(ngModel)]="isChecked">
-                                        <span class="custom-toggle-slider rounded-circle"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-4" style="text-align: left;">
-                                <h6 (click)="isChecked=true" class="text-uppercase ls-1"
-                                    [ngClass]="{'text-blue': isChecked, 'text-light' : !isChecked}"
-                                    style="cursor: pointer;">Pay annually</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 pt-4 " style="text-align: center;">
-                                <h1 style="font-size: 3.6em; font-weight: 800;color: #5e72e4;">
-
-                                    <s *ngIf="isChecked" class="text-light">$3</s>
-                                    {{ isChecked ? '$2' : ('$' + priceMonthly) }}/mo
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 mt--3 pb-5" style="text-align: center;">
-                                <span style="font-size: small;">Pay {{ isChecked ? '$24 annually (30% off)' : '$3
-                                    monthly ($36/year)' }} <a *ngIf="!isChecked && !coupon" (click)="isChecked=true"
-                                        style="color: #5e72e4; cursor: pointer;">Save 30% here!</a><br>Cancel
-                                    anytime</span>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <button type="button" [disabled]="isLoading"
-                                    class="btn btn-primary btn-lg btn-block text-uppercase ls-1" (click)="checkout()"
-                                    style="height:72px;">
-                                    <div class="spinner" *ngIf="isLoading" id="spinner"></div>
-                                    <span style="font-size: 1em;" *ngIf="!isLoading">Join yatta! — {{ isChecked ?
-                                        '$24/year' : '$3/month' }}</span><br *ngIf="!isLoading">
-                                    <span class="mt--3" style="font-size: 0.15em;" *ngIf="!isLoading">Premium
-                                        subscription</span>
-                                </button>
-                                <span style="font-size: x-small;">Payments are securely processed via <a
-                                        href="https://stripe.com">Stripe</a> 🔐</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</ng-template> -->

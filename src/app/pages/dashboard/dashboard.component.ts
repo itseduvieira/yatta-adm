@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   public tweetCountTotal;
   public info: any;
   public activityChart;
+  public followers;
 
   public focus;
   public listTitles: any[] = [];
@@ -83,6 +84,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getMine() {
+    this.twitterService.getFollowers()
+      .pipe(first())
+      .subscribe(followers => {
+          this.followers = followers;
+      });
+
     this.twitterService.getMine()
       .pipe(first())
       .subscribe(tweets => {
@@ -196,7 +203,7 @@ export class DashboardComponent implements OnInit {
       profile: {
         name: 'Jonas Marra',
         screen_name: 'marrajonas_',
-        profile_image_url: '//bit.ly/3dPV66u',
+        profile_image_url: '/assets/img/demo.jpg',
         statuses_count: 50
       },
       accessToken: 'demo',
