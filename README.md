@@ -3,7 +3,6 @@
 **Yatta!** is a Twitter analytics tool that helps users identify the best times to tweet based on audience engagement. This repository contains the frontend dashboard built with **Angular**, offering clear, interactive visualizations to guide social media strategy.
 
 ![App Screenshots](img1.jpg)
-![App Screenshots](img2.jpg)
 
 ## 🧩 Features
 
@@ -19,7 +18,9 @@
 - **Language**: TypeScript  
 - **UI**: Responsive component-based dashboard  
 - **Charting**: (Assumed) Chart.js or similar for visualizations  
-- **State Management**: Angular Services / RxJS  
+- **State Management**: Angular Services / RxJS
+
+![App Screenshots](img2.jpg) 
 
 ## 🚀 Getting Started
 
